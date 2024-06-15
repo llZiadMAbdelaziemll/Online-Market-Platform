@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import GlobalStyles from "./style/GlobalStyles";
+
+import AppLayout from "./application/ui/AppLayout";
+import Login from "./application/pages/Login";
+import Register from "./application/pages/Register";
+import Home from "./application/pages/Home";
+import Products from "./application/pages/Products";
+import ContactUs from "./application/pages/ContactUs";
+import AboutUs from "./application/pages/AboutUs";
+import Policy from "./application/pages/Policy";
+import Cart from "./application/pages/Cart";
+import WishList from "./application/pages/WishList";
+import Account from "./application/pages/Account";
+import DAppLayout from "./dashboard/ui/DAppLayout";
+import Dashboard from "./dashboard/pages/Dashboard";
+import DProducts from "./dashboard/pages/DProducts";
+import AddProduct from "./dashboard/pages/AddProduct";
+import AddCategory from "./dashboard/pages/AddCategory";
+import AddSubCategory from "./dashboard/pages/AddSubCategory";
+import { DarkModeProvider } from "./dashboard/context/DarkModeContext";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  // const navigate = useNavigate();
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <DarkModeProvider>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="home" />} />
+
+            <Route path="home" element={<Home />} />
+            <Route path="products" element={<Products />} />
+            <Route path="account" element={<Account />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="wishlist" element={<WishList />} />
+
+            <Route path="aboutus" element={<AboutUs />} />
+            <Route path="contactus" element={<ContactUs />} />
+            <Route path="policy" element={<Policy />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+
+          <Route element={<DAppLayout />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+
+            <Route path="dashboardproducts" element={<DProducts />} />
+            <Route path="addproduct" element={<AddProduct />} />
+            <Route path="addcategory" element={<AddCategory />} />
+            <Route path="addsubcategory" element={<AddSubCategory />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </DarkModeProvider>
+  );
 }
 
-export default App
+export default App;
