@@ -1,8 +1,10 @@
 import React from "react";
-import Menus from "../../ui/Menus";
+import Menus from "../../../basicUi/Menus";
 import Table from "../../ui/Table";
 import styled from "styled-components";
 import { format } from "date-fns";
+import { useSubCategories } from "./useSubCategories";
+import SubCategoriesRow from "./SubCategoriesRow";
 
 const TableTopic = styled.div`
   font-size: 17px;
@@ -11,6 +13,8 @@ const TableTopic = styled.div`
   padding: 10px 15px;
 `;
 const SubCategoryTable = () => {
+  const { isLoading, error, subCategories } = useSubCategories();
+
   return (
     <Menus>
       <Table columns="75px 200px 70px 80px 90px 30px">
@@ -25,20 +29,13 @@ const SubCategoryTable = () => {
           <div>Trending</div>
           <div>Actions</div>
         </Table.Header>
-        <Table.Row>
-          <div>dasdsa</div>
-          <div>asda</div>
-          {/* <Field>{specialization}</Field> */}
-          <div>gfgfvf</div>
-          <div>vds</div>
 
-          <div>15</div>
-          <div>{format(new Date(), "MMM dd yyyy")}</div>
-        </Table.Row>
-        {/* <Table.Body
-        data={sortedDoctors}
-        render={(doctor) => <DoctorRow doctor={doctor} key={doctor.id} />}
-      /> */}
+        <Table.Body
+          data={subCategories}
+          render={(subCategory) => (
+            <SubCategoriesRow subCategory={subCategory} key={subCategory.id} />
+          )}
+        />
       </Table>
     </Menus>
   );

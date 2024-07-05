@@ -6,30 +6,106 @@ import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
 import ImageBox from "../../ui/ImageBox";
 import Textarea from "../../ui/Textarea";
+import { useCreateCategory } from "./useCreateCategory";
+import { useEditCategory } from "./useEditCategory";
 
-function CreateCategoryForm() {
+function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
+  const { isCreating, createCategory } = useCreateCategory();
+  const { isEditing, editCategory } = useEditCategory();
+
+  const isWorking = isCreating || isEditing;
+
+  const { id: editId, ...editValues } = categoryToEdit;
+  const isEditSession = Boolean(editId);
+
+  const { register, handleSubmit, reset, formState } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
+  const { errors } = formState;
+
+  const handleCreateCategory = (data) => {
+    console.log(data);
+    if (isEditSession)
+      editCategory(
+        { newCategoryData: { ...data }, id: editId },
+        {
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      createCategory(
+        { ...data },
+        {
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+  };
   return (
-    <Form>
+    <Form
+      onSubmit={handleSubmit(handleCreateCategory)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Name">
-        <Input type="text" id="name" />
+        <Input
+          type="text"
+          id="name"
+          disabled={isWorking}
+          {...register("name", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow label="Slug">
-        <Input type="text" id="specialization" />
+        <Input
+          type="text"
+          id="slug"
+          disabled={isWorking}
+          {...register("slug", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
       <FormRow label="Sort Description">
-        <Textarea />
+        <Textarea
+          id="sortDesc"
+          disabled={isWorking}
+          {...register("sortDesc", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
       <FormRow label="Full Description">
-        <Textarea />
+        <Textarea
+          id="fullDesc"
+          disabled={isWorking}
+          {...register("fullDesc", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow label="Product Tags ( Type and make comma to separate tags )">
-        <Input type="text" id="joiningDate" />
+        <Input
+          type="text"
+          id="productTags"
+          disabled={isWorking}
+          {...register("productTags", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>
-        <Button>Submit</Button>
+        <Button disabled={isWorking}>
+          {isEditSession ? "Edit Category" : "Submit"}
+        </Button>
       </FormRow>
     </Form>
   );

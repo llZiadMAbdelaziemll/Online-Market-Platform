@@ -5,7 +5,7 @@ import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import ProductRow from "./ProductRow";
-// import { useDoctors } from "./useDoctors";
+import { useProducts } from "./useProducts";
 
 import Empty from "../../ui/Empty";
 const TableTopic = styled.div`
@@ -17,56 +17,36 @@ const TableTopic = styled.div`
 `;
 
 function ProductTable() {
-  // const { isLoading, doctors } = useDoctors();
-  // const [searchParams] = useSearchParams();
+  const { isLoading, products } = useProducts();
+  const [searchParams] = useSearchParams();
 
   // if (isLoading) return <Spinner />;
-  // if (!doctors.length) return <Empty resourceName="doctors" />;
+  // if (!products.length) return <Empty resourceName="products" />;
 
-  // // 1) FILTER
-  // const filterValue = searchParams.get("department") || "all";
-
-  // let filteredDoctors;
-  // if (filterValue === "all") filteredDoctors = doctors;
-  // if (filterValue === "dentist")
-  //   filteredDoctors = doctors.filter(
-  //     (doctor) => doctor.department === "Dentist"
-  //   );
-
-  // if (filterValue === "cardiology")
-  //   filteredDoctors = doctors.filter(
-  //     (doctor) => doctor.department === "Cardiology"
-  //   );
-  // if (filterValue === "neurology")
-  //   filteredDoctors = doctors.filter(
-  //     (doctor) => doctor.department === "Neurology"
-  //   );
-  // // 2) SORT
-  // const sortBy = searchParams.get("sortBy") || "joiningDate-asc";
-  // const [field, direction] = sortBy.split("-");
-  // const modifier = direction === "asc" ? 1 : -1;
-  // let sortedDoctors;
-  // if (field === "name" || field === "joiningDate") {
-  //   if (direction === "asc") {
-  //     sortedDoctors = filteredDoctors.sort((a, b) =>
-  //       a[field].localeCompare(b[field])
-  //     );
-  //   }
-  //   if (direction === "desc") {
-  //     sortedDoctors = filteredDoctors.sort((a, b) =>
-  //       b[field].localeCompare(a[field])
-  //     );
-  //   }
-  // }
-  // if (field === "price") {
-  //   sortedDoctors = filteredDoctors.sort(
-  //     (a, b) => (a[field] - b[field]) * modifier
-  //   );
-  // }
+  // 2) SORT
+  const sortBy = searchParams.get("sortBy") || "date-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+  let sortedProducts;
+  if (field === "name" || field === "date") {
+    if (direction === "asc") {
+      sortedProducts = products?.sort((a, b) =>
+        a[field].localeCompare(b[field])
+      );
+    }
+    if (direction === "desc") {
+      sortedProducts = products?.sort((a, b) =>
+        b[field].localeCompare(a[field])
+      );
+    }
+  }
+  if (field === "price") {
+    sortedProducts = products?.sort((a, b) => (a[field] - b[field]) * modifier);
+  }
 
   return (
     <Menus>
-      <Table columns="60px 140px 90px 100px 110px 90px 110px 140px 20px">
+      <Table columns="60px 150px 90px 80px 110px 90px 110px 140px 20px">
         <TableTopic>Operations</TableTopic>
         <Table.Header>
           <div>Image</div>
@@ -80,10 +60,12 @@ function ProductTable() {
           <div>Date</div>
           <div>Action</div>
         </Table.Header>
-        {/* <Table.Body
-          data={sortedDoctors}
-          render={(doctor) => <DoctorRow doctor={doctor} key={doctor.id} />}
-        /> */}
+        <Table.Body
+          data={sortedProducts}
+          render={(product) => (
+            <ProductRow product={product} key={product.id} />
+          )}
+        />
       </Table>
     </Menus>
   );

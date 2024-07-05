@@ -21,14 +21,20 @@ const Img = styled.img`
 `;
 
 const InputContext = createContext();
-const ImageBox = ({ width = "352", height = "352", children }) => {
+const ImageBox = ({
+  width = "352",
+  height = "352",
+  register,
+  id,
+  children,
+}) => {
   const [image, setImage] = useState();
   const ImageRef = useRef(null);
   function handleImageClick() {
     ImageRef.current.click();
   }
   return (
-    <InputContext.Provider value={{ ImageRef, image, setImage }}>
+    <InputContext.Provider value={{ ImageRef, image, setImage, register, id }}>
       <StyledImgBox width={width} height={height} onClick={handleImageClick}>
         {children}
       </StyledImgBox>
@@ -37,21 +43,35 @@ const ImageBox = ({ width = "352", height = "352", children }) => {
 };
 const BoxImage = () => {
   const { image } = useContext(InputContext);
-  console.log(image);
   return <Img src={image ? URL.createObjectURL(image) : null} alt="" />;
 };
 
 const ImgInput = () => {
-  const { setImage, ImageRef } = useContext(InputContext);
+  const { setImage, ImageRef, register, id } = useContext(InputContext);
+
+  const {
+    ref,
+    onChange: registerOnChange,
+    ...rest
+  } = register(id, {
+    required: "This field is required",
+  });
 
   function handleUploadImage(e) {
     setImage(e.target.files[0]);
+    registerOnChange(e);
   }
   return (
     <FileInput
-      ref={ImageRef}
+      ref={(e) => {
+        ImageRef.current = e;
+        ref(e);
+      }}
       onChange={handleUploadImage}
       style={{ display: "none" }}
+      id={id}
+      accept="image/*"
+      {...rest}
     />
   );
 };

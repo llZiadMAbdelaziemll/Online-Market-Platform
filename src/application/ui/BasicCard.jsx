@@ -4,9 +4,10 @@ import styled from "styled-components";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { FaRegUser, FaRegHeart, FaRegEye } from "react-icons/fa";
 import Small from "./Small";
-import { formatCurrency } from "../utils/helpers";
-import StarRating from "../utils/StarRating";
+import { formatCurrency } from "../../utils/helpers";
+import StarRating from "../../utils/StarRating";
 import ReactImageZoom from "react-image-zoom";
+import { useNavigate } from "react-router-dom";
 const TopHalf = styled.div`
   position: relative;
 `;
@@ -70,6 +71,10 @@ const StyledBasicCard = styled.div`
   &:hover ${SidedIcons} {
     right: 3rem;
   }
+
+  & small {
+    text-transform: capitalize;
+  }
 `;
 
 const BotHalf = styled.div`
@@ -101,11 +106,19 @@ const Price = styled.span`
   font-size: 1.6rem;
   font-weight: 700;
 `;
-const BasicCard = () => {
+const BasicCard = ({ product, place = "" }) => {
   const [userRating, setUserRating] = useState("");
-
+  const navigate = useNavigate();
+  const {
+    id: productId,
+    category,
+    review,
+    fullDetails,
+    price,
+    offer,
+  } = product;
   return (
-    <StyledBasicCard>
+    <StyledBasicCard onClick={() => navigate(`${productId}`)}>
       <TopHalf>
         <ImageDiv>
           {/* <Img src="./products/1.jpg" /> */}
@@ -130,12 +143,16 @@ const BasicCard = () => {
         </Icon>
       </TopHalf>
       <BotHalf>
-        <Small>Snacks</Small>
+        <Small>{category}</Small>
         <StarRating size={15} onSetRating={setUserRating} color="#f5885f" />
-        <Description>Fresh organic villa farm lomon 500gm pack</Description>
+        <Description>
+          {fullDetails.length > 35
+            ? `${fullDetails?.slice(0, 35)}..`
+            : fullDetails}
+        </Description>
         <Prices>
-          <Price>{formatCurrency(50)}</Price>{" "}
-          <Small type="price">{formatCurrency(50)}</Small>
+          <Price>{formatCurrency(price)}</Price>
+          <Small type="price">{formatCurrency(offer)}</Small>
         </Prices>
       </BotHalf>
     </StyledBasicCard>
