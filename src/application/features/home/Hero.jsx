@@ -82,7 +82,7 @@ const Hero = () => {
                 <br />
                 reiciendis beatae consequuntur.
               </P>
-              <StyledLink>Shop Now</StyledLink>
+              <StyledLink to="/shop">Shop Now</StyledLink>
             </Content>
           </div>
           <div className="carousel-item p-relative">
@@ -102,7 +102,7 @@ const Hero = () => {
                 <br />
                 reiciendis beatae consequuntur.
               </P>
-              <StyledLink>Shop Now</StyledLink>
+              <StyledLink to="/shop">Shop Now</StyledLink>
             </Content>
           </div>
         </div>

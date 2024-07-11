@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./style/GlobalStyles";
 
 import AppLayout from "./application/ui/AppLayout";
@@ -27,6 +21,7 @@ import AddSubCategory from "./dashboard/pages/AddSubCategory";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Product from "./application/pages/Product";
+import ProtectedRoute from "./application/ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,16 +38,37 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="home" />} />
 
               <Route path="home" element={<Home />} />
               <Route path="home/:productId" element={<Product />} />
               <Route path="shop" element={<Shop />} />
-              <Route path="shop/:productId" element={<Product />} />
+              <Route path="product/:productId" element={<Product />} />
+              {/* <Route path="shop/:productId" element={<Product />} /> */}
+              {/* <Route path="shop/:productId/:productId" element={<Product />} /> */}
+              {/* <Route
+                path="shop/:productId/:productId/:productId"
+                element={<Product />}
+              />
+              <Route
+                path="shop/:productId/:productId/:productId/:productId"
+                element={<Product />}
+              />
+              <Route
+                path="shop/:productId/:productId/:productId/:productId/:productId"
+                element={<Product />}
+              /> */}
               <Route path="account" element={<Account />} />
               <Route path="cart" element={<Cart />} />
               <Route path="wishlist" element={<WishList />} />
+              {/* <Route path="wishlist/:productId" element={<Product />} /> */}
 
               <Route path="aboutus" element={<AboutUs />} />
               <Route path="contactus" element={<ContactUs />} />

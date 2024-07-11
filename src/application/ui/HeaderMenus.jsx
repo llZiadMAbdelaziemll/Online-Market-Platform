@@ -4,6 +4,7 @@ import { FaRegUser, FaRegHeart } from "react-icons/fa";
 import { HiOutlineShoppingCart, HiOutlineSearch } from "react-icons/hi";
 
 import IconLink from "./IconLink";
+import { useUser } from "../features/auth/useUser";
 
 const HeaderList = styled.ul`
   display: flex;
@@ -14,17 +15,23 @@ const HeaderList = styled.ul`
 `;
 
 const HeaderMenus = () => {
+  const { user } = useUser();
+  console.log(user);
   return (
     <HeaderList>
       <li>
-        <IconLink icon={<FaRegUser />} name="account" />
+        <IconLink to="/cart" icon={<FaRegUser />} name="account" />
       </li>
-      <li>
-        <IconLink icon={<FaRegHeart />} name="wishlist" />
-      </li>
-      <li>
-        <IconLink icon={<HiOutlineShoppingCart />} name="cart" />
-      </li>
+      {user?.app_metadata?.role === "buyer" || (
+        <>
+          <li>
+            <IconLink to="/wishlist" icon={<FaRegHeart />} name="wishlist" />
+          </li>
+          <li>
+            <IconLink to="/cart" icon={<HiOutlineShoppingCart />} name="cart" />
+          </li>
+        </>
+      )}
     </HeaderList>
   );
 };

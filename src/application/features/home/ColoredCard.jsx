@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import Description from "../../ui/Description";
 import Button from "../../ui/Button";
+import { Link } from "react-router-dom";
 
 const StyledColoredCard = styled.div`
   position: relative;
@@ -45,6 +46,24 @@ const Span = styled.span`
   font-weight: bold;
   font-size: 2rem;
 `;
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  font-family: "Manrope", sans-serif;
+  margin-top: 0.8rem;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  background-color: var(--color-green-400);
+  color: #fff;
+  border-radius: var(--border-radius-sm);
+
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #000;
+  }
+`;
 const ColoredCard = ({ image, name, discount }) => {
   return (
     <StyledColoredCard>
@@ -56,7 +75,7 @@ const ColoredCard = ({ image, name, discount }) => {
           <Description type="semiDescription">off on first order</Description>
         </Tag>
         <div>
-          <Button>Shop Now</Button>
+          <StyledLink to="/shop">Shop Now</StyledLink>
         </div>
       </Content>
     </StyledColoredCard>

@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useUser } from "../features/auth/useUser";
+import { useLogout } from "../features/auth/useLogout";
 
 const Nav = styled.nav`
   display: flex;
@@ -37,6 +39,8 @@ const StyledLink = styled(NavLink)`
 `;
 
 const HeaderLinks = () => {
+  const { user, isLoading, isAuthenticated } = useUser();
+  const { logout, isLoading: isLoggingOut } = useLogout();
   return (
     <Nav>
       <StyledLink to="/home">Home</StyledLink>
@@ -44,9 +48,18 @@ const HeaderLinks = () => {
       <StyledLink to="/aboutus">About Us</StyledLink>
       <StyledLink to="/contactus">Contact Us</StyledLink>
       <StyledLink to="/policy">Policy</StyledLink>
-      <StyledLink to="/dashboard">DASHBOARD</StyledLink>
-      <StyledLink to="/login">Log In</StyledLink>
-      <StyledLink to="/register">Register</StyledLink>
+
+      {user?.user_metadata?.role === "buyer" || (
+        <StyledLink to="/dashboard">DASHBOARD</StyledLink>
+      )}
+      {!isAuthenticated ? (
+        <>
+          <StyledLink to="/login">Log In</StyledLink>
+          <StyledLink to="/register">Register</StyledLink>
+        </>
+      ) : (
+        <StyledLink onClick={() => logout()}>Log out</StyledLink>
+      )}
     </Nav>
   );
 };

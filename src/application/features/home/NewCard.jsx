@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Button from "../../ui/Button";
+import { Link } from "react-router-dom";
 
 const StyledNewCard = styled.div`
   position: relative;
@@ -57,6 +58,25 @@ const Span = styled.span`
   color: #fff;
   margin-bottom: 5px;
 `;
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: "Manrope", sans-serif;
+
+  padding: 0.8rem 2.2rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  background-color: var(--color-green-400);
+  color: #fff;
+  border-radius: var(--border-radius-sm);
+
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #000;
+  }
+`;
 const NewCard = () => {
   return (
     <StyledNewCard>
@@ -66,7 +86,7 @@ const NewCard = () => {
         <Category>Fruits</Category>
         <Span>100% Natural</Span>
         <div>
-          <Button>Shop Now</Button>
+          <StyledLink to="/shop">Shop Now</StyledLink>
         </div>
       </Content>
     </StyledNewCard>

@@ -14,8 +14,14 @@ import Small from "../ui/Small";
 import Button from "../ui/Button";
 import IconLink from "../ui/IconLink";
 import ButtonIcon from "../ui/ButtonIcon";
+import Spinner from "../../basicUi/Spinner";
+import Empty from "../../basicUi/Empty";
 import { formatCurrency } from "../../utils/helpers";
 import { FaRegEye, FaRegHeart } from "react-icons/fa";
+import { useUser } from "../features/auth/useUser";
+import { useNavigate } from "react-router-dom";
+import { useAddToCart } from "../features/cart/useAddToCart";
+import { useAddToFavorites } from "../features/favorites/useAddToFavorites";
 
 const StyledProduct = styled.section`
   margin: 10rem 0;
@@ -199,11 +205,16 @@ const Icon = styled.div`
 `;
 export default function Product() {
   const [input, setInput] = useState(1);
+  const navigate = useNavigate();
   const { products } = useProducts();
+
   const { product, isLoading } = useProduct();
-
+  const { user, isAuthenticated } = useUser();
+  const { addProductToCart } = useAddToCart();
+  const { addProductToFavorites } = useAddToFavorites();
   console.log(product);
-
+  if (isLoading) return <Spinner />;
+  if (!product) return <Empty resourceName="product" />;
   const {
     id: productId,
     image,
@@ -211,8 +222,8 @@ export default function Product() {
     stock,
     purchased,
     sortDescription,
-    fullDetails,
     category,
+    fullDetails,
     review,
     slug,
     color,
@@ -224,7 +235,37 @@ export default function Product() {
 
   function handleAddCart(e) {
     e.preventDefault();
-    console.log(input);
+
+    if (!isAuthenticated) navigate("/login");
+    else {
+      addProductToCart({
+        image,
+        name,
+        quantity: input,
+        price,
+        product_id: productId,
+        user_id: user?.id,
+      });
+    }
+  }
+
+  function handleAddFavorites(data) {
+    data.preventDefault();
+    const quantity = data?.quantity ? quantity : 1;
+    if (!isAuthenticated) navigate("/login");
+    else {
+      addProductToFavorites({
+        category,
+        review,
+        fullDetails,
+        price,
+        offer,
+        quantity,
+
+        product_id: productId,
+        user_id: user?.id,
+      });
+    }
   }
   return (
     <>
@@ -234,13 +275,13 @@ export default function Product() {
         <Container>
           <Row className="topSidedRow">
             <ImageSide>
-              <Img src={image[0]} />
+              <Img src={image?.at(0)} />
               <MiniImages>
-                <img src={image[1]} />
-                <img src={image[2]} />
-                <img src={image[3]} />
-                <img src={image[4]} />
-                <img src={image[5]} />
+                <img src={image?.at(1)} />
+                <img src={image?.at(2)} />
+                <img src={image?.at(3)} />
+                <img src={image?.at(4)} />
+                <img src={image?.at(5)} />
               </MiniImages>
             </ImageSide>
             <InformationSide>
@@ -316,10 +357,7 @@ export default function Product() {
                   <Button onClick={handleAddCart}>Add To Cart</Button>
 
                   <Icon>
-                    <FaRegHeart />
-                  </Icon>
-                  <Icon>
-                    <FaRegEye />
+                    <FaRegHeart onClick={handleAddFavorites} />
                   </Icon>
                 </form>
               </BuyOperations>
@@ -344,7 +382,13 @@ export default function Product() {
             <Row>
               <Products>
                 {products?.slice(0, 5).map((product) => {
-                  return <BasicCard key={product.id} product={product} />;
+                  return (
+                    <BasicCard
+                      key={product.id}
+                      product={product}
+                      place="product"
+                    />
+                  );
                 })}
               </Products>
             </Row>

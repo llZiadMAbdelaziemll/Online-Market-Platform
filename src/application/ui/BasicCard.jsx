@@ -8,6 +8,7 @@ import { formatCurrency } from "../../utils/helpers";
 import StarRating from "../../utils/StarRating";
 import ReactImageZoom from "react-image-zoom";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../basicUi/Spinner";
 const TopHalf = styled.div`
   position: relative;
 `;
@@ -109,6 +110,7 @@ const Price = styled.span`
 const BasicCard = ({ product, place = "" }) => {
   const [userRating, setUserRating] = useState("");
   const navigate = useNavigate();
+
   const {
     id: productId,
     category,
@@ -117,8 +119,23 @@ const BasicCard = ({ product, place = "" }) => {
     price,
     offer,
   } = product;
+
   return (
-    <StyledBasicCard onClick={() => navigate(`${productId}`)}>
+    <StyledBasicCard
+      onClick={
+        () =>
+          navigate(
+            `${
+              place === "wishlist"
+                ? `/product/${product?.product_id}`
+                : `/product/${productId}`
+            }`
+          )
+        // navigate(
+        //   `${place === "wishlist" ? `${product?.product_id}` : `${productId}`}`
+        // )
+      }
+    >
       <TopHalf>
         <ImageDiv>
           {/* <Img src="./products/1.jpg" /> */}
