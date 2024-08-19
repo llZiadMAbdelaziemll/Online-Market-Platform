@@ -218,7 +218,7 @@ export default function ProductDetailsModal({ productDetail }) {
   return (
     <StyledModal>
       <Left>
-        <img src="./products/1.jpg" />
+        <img src={image?.at(2)} />
       </Left>
 
       <Right>
