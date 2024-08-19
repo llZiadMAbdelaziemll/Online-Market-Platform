@@ -12,6 +12,7 @@ import Table from "../../ui/Table";
 import { useCreateSubCategory } from "./useCreateSubCategory";
 import { useDeleteSubCategory } from "./useDeleteSubCategory";
 import CreateSubCategoryForm from "./CreateSubCategoryForm";
+import { useUser } from "../../../application/features/auth/useUser";
 
 const Img = styled.img`
   display: block;
@@ -41,6 +42,7 @@ const ChangedField = styled.div`
 function SubCategoriesRow({ subCategory }) {
   const { isDeleting, deleteSubCategory } = useDeleteSubCategory();
   const { isCreating, createSubCategory } = useCreateSubCategory();
+  const { user } = useUser();
 
   const {
     id: subCategoryId,
@@ -74,43 +76,44 @@ function SubCategoriesRow({ subCategory }) {
       <Field>{product}</Field>
       <ChangedField>{status}</ChangedField>
       <Field>{trending}</Field>
+      {user?.user_metadata?.role === "admin" && (
+        <div>
+          <Modal>
+            <Menus.Menu>
+              <Menus.Toggle id={subCategoryId} />
 
-      <div>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={subCategoryId} />
-
-            <Menus.List id={subCategoryId}>
-              {/* <Menus.Button
+              <Menus.List id={subCategoryId}>
+                {/* <Menus.Button
                 icon={<FiSettings />}
                 onClick={handleDuplicate}
                 disabled={isCreating}
               >
                 Duplicate
               </Menus.Button> */}
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                </Modal.Open>
 
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
 
-            <Modal.Window name="edit">
-              <CreateSubCategoryForm categoryToEdit={subCategory} />
-            </Modal.Window>
+              <Modal.Window name="edit">
+                <CreateSubCategoryForm categoryToEdit={subCategory} />
+              </Modal.Window>
 
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="subCategories"
-                disabled={isDeleting}
-                onConfirm={() => deleteSubCategory(subCategoryId)}
-              />
-            </Modal.Window>
-          </Menus.Menu>
-        </Modal>
-      </div>
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName="subCategories"
+                  disabled={isDeleting}
+                  onConfirm={() => deleteSubCategory(subCategoryId)}
+                />
+              </Modal.Window>
+            </Menus.Menu>
+          </Modal>
+        </div>
+      )}
     </Table.Row>
   );
 }

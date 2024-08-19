@@ -39,7 +39,7 @@ const Span = styled.span`
   /* text-align: center; */
 `;
 const DateCounter = () => {
-  const [targetDate, setTargetDate] = useState(new Date("2024-04-28T00:00:00"));
+  const [targetDate, setTargetDate] = useState(new Date("2024-10-28T00:00:00"));
   const [countdown, setCountdown] = useState({
     days: "000",
     hours: "00",

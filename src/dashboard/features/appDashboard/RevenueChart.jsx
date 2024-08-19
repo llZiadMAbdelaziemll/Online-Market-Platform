@@ -221,7 +221,7 @@ const RevenueChart = (revenue, expenses) => {
       },
       y: {
         ticks: {
-          callback: (value) => `$${value}k`,
+          callback: (value) => `$${value}`,
         },
         grid: {
           color: rootStyles.getPropertyValue("--color-grey-100").trim(),

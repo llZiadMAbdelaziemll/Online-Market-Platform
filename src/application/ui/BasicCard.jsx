@@ -173,8 +173,9 @@ const BasicCard = ({ product, place = "" }) => {
   function handleAddCart(e) {
     e.preventDefault();
 
-    if (!isAuthenticated) navigate("/login");
-    if (!isExistCart) {
+    if (!isAuthenticated) {
+      navigate("/login");
+    } else if (!isExistCart) {
       addProductToCart({
         image,
         name,
@@ -189,9 +190,6 @@ const BasicCard = ({ product, place = "" }) => {
   }
 
   function handleAddFavorites() {
-    // const quantity = data?.quantity ? quantity : 1;
-    console.log();
-
     if (!isAuthenticated) navigate("/login");
     if (!isExistFavorites) {
       addProductToFavorites({
@@ -213,19 +211,19 @@ const BasicCard = ({ product, place = "" }) => {
     }
   }
   return (
-    <StyledBasicCard
-      onClick={(e) => {
-        navigate(
-          `${
-            place === "wishlist"
-              ? `/product/${product?.product_id}`
-              : `/product/${productId}`
-          }`
-        );
-      }}
-    >
+    <StyledBasicCard>
       <TopHalf>
-        <ImageDiv>
+        <ImageDiv
+          onClick={(e) => {
+            navigate(
+              `${
+                place === "wishlist"
+                  ? `/product/${product?.product_id}`
+                  : `/product/${productId}`
+              }`
+            );
+          }}
+        >
           {/* <Img src="./products/1.jpg" /> */}
           <ReactImageZoom
             width={198}

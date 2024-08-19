@@ -12,6 +12,7 @@ import { FiSettings } from "react-icons/fi";
 import Table from "../../ui/Table";
 import { useCreateCategory } from "./useCreateCategory";
 import CreateCategoryForm from "./CreateCategoryForm";
+import { useUser } from "../../../application/features/auth/useUser";
 
 const Img = styled.img`
   display: block;
@@ -40,6 +41,7 @@ const ChangedField = styled.div`
 
 function CategoriesRow({ category }) {
   const { isDeleting, deleteCategory } = useDeleteCategory();
+  const { user } = useUser();
 
   const {
     id: categoryId,
@@ -61,35 +63,37 @@ function CategoriesRow({ category }) {
       <ChangedField>{status}</ChangedField>
       <Field>{trending}</Field>
 
-      <div>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={categoryId} />
+      {user?.user_metadata?.role === "admin" && (
+        <div>
+          <Modal>
+            <Menus.Menu>
+              <Menus.Toggle id={categoryId} />
 
-            <Menus.List id={categoryId}>
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
+              <Menus.List id={categoryId}>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                </Modal.Open>
 
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
 
-            <Modal.Window name="edit">
-              <CreateCategoryForm categoryToEdit={category} />
-            </Modal.Window>
+              <Modal.Window name="edit">
+                <CreateCategoryForm categoryToEdit={category} />
+              </Modal.Window>
 
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="categories"
-                disabled={isDeleting}
-                onConfirm={() => deleteCategory(categoryId)}
-              />
-            </Modal.Window>
-          </Menus.Menu>
-        </Modal>
-      </div>
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName="categories"
+                  disabled={isDeleting}
+                  onConfirm={() => deleteCategory(categoryId)}
+                />
+              </Modal.Window>
+            </Menus.Menu>
+          </Modal>
+        </div>
+      )}
     </Table.Row>
   );
 }

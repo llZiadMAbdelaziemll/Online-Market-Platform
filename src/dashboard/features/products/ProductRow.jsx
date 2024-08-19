@@ -11,6 +11,7 @@ import Menus from "../../ui/Menus";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteProduct } from "./useDeleteProduct";
 import CreateProductForm from "./CreateProductForm";
+import { useUser } from "../../../application/features/auth/useUser";
 
 const Img = styled.img`
   display: block;
@@ -39,6 +40,7 @@ const ChangedField = styled.div`
 
 function ProductRow({ product }) {
   const { isDeleting, deleteProduct } = useDeleteProduct();
+  const { user } = useUser();
   const {
     id: productId,
     image,
@@ -74,44 +76,44 @@ function ProductRow({ product }) {
       <ChangedField>{status || "Pending"}</ChangedField>
       <Field>{format(new Date(date), "MMM dd yyyy")}</Field>
 
-      {/* {userRole === "admin" && ( */}
-      <div>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={productId} />
+      {user?.user_metadata?.role === "admin" && (
+        <div>
+          <Modal>
+            <Menus.Menu>
+              <Menus.Toggle id={productId} />
 
-            <Menus.List id={productId}>
-              {/* <Menus.Button
+              <Menus.List id={productId}>
+                {/* <Menus.Button
                 icon={<FiSettings />}
                 // onClick={handleDuplicate}
                 // disabled={isCreating}
               >
                 Duplicate
               </Menus.Button> */}
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                </Modal.Open>
 
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
 
-            <Modal.Window name="edit">
-              <CreateProductForm productToEdit={product} />
-            </Modal.Window>
+              <Modal.Window name="edit">
+                <CreateProductForm productToEdit={product} />
+              </Modal.Window>
 
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="products"
-                disabled={isDeleting}
-                onConfirm={() => deleteProduct(productId)}
-              />
-            </Modal.Window>
-          </Menus.Menu>
-        </Modal>
-      </div>
-      {/* )} */}
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName="products"
+                  disabled={isDeleting}
+                  onConfirm={() => deleteProduct(productId)}
+                />
+              </Modal.Window>
+            </Menus.Menu>
+          </Modal>
+        </div>
+      )}
     </Table.Row>
   );
 }

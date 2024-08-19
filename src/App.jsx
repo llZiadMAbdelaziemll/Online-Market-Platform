@@ -48,25 +48,10 @@ function App() {
               }
             >
               <Route index element={<Navigate replace to="home" />} />
-
               <Route path="home" element={<Home />} />
               <Route path="home/:productId" element={<Product />} />
               <Route path="shop" element={<Shop />} />
               <Route path="product/:productId" element={<Product />} />
-              {/* <Route path="shop/:productId" element={<Product />} /> */}
-              {/* <Route path="shop/:productId/:productId" element={<Product />} /> */}
-              {/* <Route
-                path="shop/:productId/:productId/:productId"
-                element={<Product />}
-              />
-              <Route
-                path="shop/:productId/:productId/:productId/:productId"
-                element={<Product />}
-              />
-              <Route
-                path="shop/:productId/:productId/:productId/:productId/:productId"
-                element={<Product />}
-              /> */}
               <Route path="account" element={<Account />} />
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
