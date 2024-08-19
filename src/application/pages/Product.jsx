@@ -14,7 +14,7 @@ import Small from "../ui/Small";
 import Button from "../ui/Button";
 import IconLink from "../ui/IconLink";
 import ButtonIcon from "../ui/ButtonIcon";
-import Spinner from "../../basicUi/Spinner";
+import Spinner from "../ui/Spinner";
 import Empty from "../../basicUi/Empty";
 import { formatCurrency } from "../../utils/helpers";
 import { FaRegEye, FaRegHeart } from "react-icons/fa";

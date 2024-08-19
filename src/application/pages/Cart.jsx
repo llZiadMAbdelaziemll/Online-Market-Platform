@@ -1,7 +1,7 @@
 import React from "react";
 import BreadCrumb from "../ui/BreadCrumb";
 import Meta from "../ui/Meta";
-import Spinner from "../../basicUi/Spinner";
+import Spinner from "../ui/Spinner";
 import { useCartProducts } from "../features/cart/useCartProducts";
 import CartTable from "../features/cart/CartTable";
 import Row from "../ui/Row";

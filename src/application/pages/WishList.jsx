@@ -6,7 +6,7 @@ import Container from "../ui/Container";
 import Row from "../ui/Row";
 import { useFavorites } from "../features/favorites/useFavorites";
 import BasicCard from "../ui/BasicCard";
-import Spinner from "../../basicUi/Spinner";
+import Spinner from "../ui/Spinner";
 import Empty from "../../basicUi/Empty";
 
 const StyledList = styled.div`
