@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useCategories } from "../../../dashboard/features/categories/useCategories";
+import { useProducts } from "../../../dashboard/features/products/useProducts";
 
 const StyledCategoriesList = styled.ul`
   list-style: none;
@@ -48,30 +50,28 @@ const ViewMore = styled(Link)`
   text-transform: capitalize;
 `;
 const CategoriesList = () => {
+  const { categories } = useCategories();
+  const { products } = useProducts();
+  function itemsCount(name) {
+    const categoryCount = products?.filter(
+      (product) => product.category == name?.toLowerCase()
+    )?.length;
+    console.log(categoryCount);
+    return categoryCount;
+  }
+
   return (
     <StyledCategoriesList>
-      <StyledLink>
-        <H5 as="h5">Cake & Milk</H5>
-        <ItemsCount>(65 items)</ItemsCount>
-      </StyledLink>
-      <StyledLink>
-        <H5 as="h5">Fresh Meat</H5>
-        <ItemsCount>(60 items)</ItemsCount>
-      </StyledLink>
-      <StyledLink>
-        <H5 as="h5">Vegetables</H5>
-        <ItemsCount>(50 items)</ItemsCount>
-      </StyledLink>
-      <StyledLink>
-        <H5 as="h5">Apple & Mango</H5>
-        <ItemsCount>(14 items)</ItemsCount>
-      </StyledLink>
-      <StyledLink>
-        <H5 as="h5">Strawberry</H5>
-        <ItemsCount>(68 items)</ItemsCount>
-      </StyledLink>
-      <StyledLink to="/products">
-        <ViewMore to="/products">view more</ViewMore>
+      {categories?.slice(0, 5)?.map((cat) => {
+        return (
+          <StyledLink key={cat.id}>
+            <H5 as="h5">{cat.name}</H5>
+            <ItemsCount>({itemsCount(cat?.name)} items)</ItemsCount>
+          </StyledLink>
+        );
+      })}
+      <StyledLink to="/shop">
+        <ViewMore to="/shop">view more</ViewMore>
       </StyledLink>
     </StyledCategoriesList>
   );

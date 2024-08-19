@@ -1,11 +1,10 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FaLongArrowAltRight } from "react-icons/fa";
-
 import Heading from "../../ui/Heading";
 import Description from "../../ui/Description";
-import { Link } from "react-router-dom";
+
 const TopHalf = styled.div`
   padding: 2.4rem;
   display: flex;
@@ -25,7 +24,6 @@ const Img = styled.img`
 const StyledBlogCard = styled.div`
   width: 414px;
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
   justify-content: center;
 
@@ -57,6 +55,7 @@ const StyledMore = styled(Link)`
     font-size: 1.8rem;
   }
 `;
+
 const StyledDate = styled.div`
   position: absolute;
   padding: 1.2rem 1.4rem;

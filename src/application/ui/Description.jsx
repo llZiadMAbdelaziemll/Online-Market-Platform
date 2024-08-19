@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 const Description = styled.p`
   color: #777;
   font-size: 14px;
+  margin-bottom: 0;
   ${(props) =>
     props.type === "topic" &&
     css`

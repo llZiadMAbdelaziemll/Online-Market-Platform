@@ -4,6 +4,8 @@ import Heading from "../../ui/Heading";
 import Description from "../../ui/Description";
 import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
+import StyledLinkButton from "../../ui/StyledLinkButton";
+import Code from "../../ui/Code";
 
 const StyledColoredCard = styled.div`
   position: relative;
@@ -25,6 +27,9 @@ const Content = styled.div`
   text-align: left;
   height: 100%;
   padding: 2.4rem;
+  & a {
+    margin-top: 0.8rem;
+  }
 `;
 const H5 = styled.h5`
   font-family: "Manrope", sans-serif;
@@ -41,29 +46,7 @@ const Tag = styled.div`
   align-items: center;
   gap: 1rem;
 `;
-const Span = styled.span`
-  color: var(--color-green-400);
-  font-weight: bold;
-  font-size: 2rem;
-`;
 
-const StyledLink = styled(Link)`
-  display: inline-block;
-  font-family: "Manrope", sans-serif;
-  margin-top: 0.8rem;
-  padding: 0.8rem 2.2rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: capitalize;
-  background-color: var(--color-green-400);
-  color: #fff;
-  border-radius: var(--border-radius-sm);
-
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: #000;
-  }
-`;
 const ColoredCard = ({ image, name, discount }) => {
   return (
     <StyledColoredCard>
@@ -71,11 +54,11 @@ const ColoredCard = ({ image, name, discount }) => {
       <Content>
         <H5>{name}</H5>
         <Tag>
-          <Span>{discount}%</Span>
+          <Code>{discount}%</Code>
           <Description type="semiDescription">off on first order</Description>
         </Tag>
         <div>
-          <StyledLink to="/shop">Shop Now</StyledLink>
+          <StyledLinkButton to="/shop">Shop Now</StyledLinkButton>
         </div>
       </Content>
     </StyledColoredCard>

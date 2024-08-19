@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-import Button from "../../ui/Button";
-import { Link } from "react-router-dom";
+import StyledLinkButton from "../../ui/StyledLinkButton";
 
 const StyledNewCard = styled.div`
   position: relative;
@@ -24,17 +22,11 @@ const Content = styled.div`
   top: 0;
   left: 0;
   text-align: left;
+  & a {
+    margin-top: 1rem;
+  }
 `;
-const H5 = styled.h5`
-  font-family: "Manrope", sans-serif;
-  text-transform: capitalize;
-  color: #2b2b2d;
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
-`;
+
 const Name = styled.h4`
   margin-bottom: 5px;
   font-family: "Manrope", sans-serif;
@@ -59,24 +51,6 @@ const Span = styled.span`
   margin-bottom: 5px;
 `;
 
-const StyledLink = styled(Link)`
-  display: inline-block;
-  margin-top: 1rem;
-  font-family: "Manrope", sans-serif;
-
-  padding: 0.8rem 2.2rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: capitalize;
-  background-color: var(--color-green-400);
-  color: #fff;
-  border-radius: var(--border-radius-sm);
-
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: #000;
-  }
-`;
 const NewCard = () => {
   return (
     <StyledNewCard>
@@ -86,7 +60,7 @@ const NewCard = () => {
         <Category>Fruits</Category>
         <Span>100% Natural</Span>
         <div>
-          <StyledLink to="/shop">Shop Now</StyledLink>
+          <StyledLinkButton to="/shop">Shop Now</StyledLinkButton>
         </div>
       </Content>
     </StyledNewCard>

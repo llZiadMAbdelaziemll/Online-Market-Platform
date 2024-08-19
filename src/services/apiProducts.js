@@ -1,8 +1,13 @@
 import supabase, { supabaseUrl } from "./supabase";
+import { PAGE_SIZE } from "../utils/constants";
 
-export async function getProducts() {
+export async function getProducts({ page }) {
   let query = supabase.from("products").select("*", { count: "exact" });
-
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
   const { data, error, count } = await query;
 
   if (error) {
@@ -10,6 +15,20 @@ export async function getProducts() {
     throw new Error("products could not be loaded");
   }
   console.log(data);
+
+  return { data, count };
+}
+export async function getPurchasedProducts() {
+  const { data, error, count } = await supabase
+    .from("products")
+    .select("*", { count: "exact" })
+    .order("purchased", { ascending: false })
+    .limit(8); // Order by largest purchase value
+
+  if (error) {
+    console.error(error);
+    throw new Error("products not found");
+  }
 
   return { data, count };
 }
@@ -28,7 +47,11 @@ export async function getProduct(id) {
   return data;
 }
 export async function createEditProduct(newProduct, id) {
-  // const hasImagePath = newProduct.image?.startsWith?.(supabaseUrl);
+  const hasImagePath = newProduct?.image?.every((image) =>
+    image?.startsWith?.(supabaseUrl)
+  );
+  // newProduct.image?.startsWith?.(supabaseUrl);
+  console.log(hasImagePath);
   const { tag, ...other } = newProduct;
   const imageNames = newProduct.image.map((image) => {
     return `${image.name}?t=${Math.random()}`.replaceAll("/", "");
@@ -37,11 +60,14 @@ export async function createEditProduct(newProduct, id) {
   //   "/",
   //   ""
   // );
-  const imagePaths = imageNames.map((name) => {
-    return `${supabaseUrl}/storage/v1/object/public/products/${name}`;
-  });
-
-  // const imagePath = `${supabaseUrl}/storage/v1/object/public/product-images/${imageName}`;
+  const imagePaths = hasImagePath
+    ? newProduct?.image?.map((image) => image)
+    : imageNames.map((name) => {
+        return `${supabaseUrl}/storage/v1/object/public/products/${name}`;
+      });
+  // const imagePaths =  imageNames.map((name) => {
+  //     return `${supabaseUrl}/storage/v1/object/public/products/${name}`;
+  //   });
 
   // 1. Create/edit doctor
   let query = supabase.from("products");
@@ -51,8 +77,10 @@ export async function createEditProduct(newProduct, id) {
     query = query.insert([{ ...other, image: [...imagePaths], tag: [tag] }]);
 
   // // B) EDIT
-  // if (id)
-  //   query = query.update({ ...newProduct, image: imagePath }).eq("id", id);
+  if (id)
+    query = query
+      .update({ ...other, image: [...imagePaths], tag: [tag] })
+      .eq("id", id);
 
   const { data, error } = await query.select().single();
 
@@ -62,7 +90,7 @@ export async function createEditProduct(newProduct, id) {
   }
 
   // 2. Upload image
-  // if (hasImagePath) return data;
+  if (hasImagePath) return data;
 
   for (let i = 0; i < newProduct?.image?.length; i++) {
     const image = newProduct.image[i];

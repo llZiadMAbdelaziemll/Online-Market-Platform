@@ -6,6 +6,11 @@ import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { FiSettings } from "react-icons/fi";
 
 import Table from "../../ui/Table";
+import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteProduct } from "./useDeleteProduct";
+import CreateProductForm from "./CreateProductForm";
 
 const Img = styled.img`
   display: block;
@@ -33,13 +38,14 @@ const ChangedField = styled.div`
 `;
 
 function ProductRow({ product }) {
+  const { isDeleting, deleteProduct } = useDeleteProduct();
   const {
     id: productId,
     image,
     name,
     offer,
     price,
-    Purchased,
+    purchased,
     date,
     status,
     stock,
@@ -63,49 +69,49 @@ function ProductRow({ product }) {
       <Field>{name}</Field>
       <Field>{formatCurrency(price)}</Field>
       <Field>{offer || "-"}</Field>
-      <Field>{Purchased || 0}</Field>
+      <Field>{purchased || 0}</Field>
       <Field>{stock || 0}</Field>
       <ChangedField>{status || "Pending"}</ChangedField>
       <Field>{format(new Date(date), "MMM dd yyyy")}</Field>
 
-      {/* {userRole === "admin" && (
-        <div>
-          <Modal>
-            <Menus.Menu>
-              <Menus.Toggle id={doctorId} />
+      {/* {userRole === "admin" && ( */}
+      <div>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={productId} />
 
-              <Menus.List id={doctorId}>
-                <Menus.Button
-                  icon={<FiSettings />}
-                  onClick={handleDuplicate}
-                  disabled={isCreating}
-                >
-                  Duplicate
-                </Menus.Button>
-                <Modal.Open opens="edit">
-                  <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-                </Modal.Open>
+            <Menus.List id={productId}>
+              {/* <Menus.Button
+                icon={<FiSettings />}
+                // onClick={handleDuplicate}
+                // disabled={isCreating}
+              >
+                Duplicate
+              </Menus.Button> */}
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
 
-                <Modal.Open opens="delete">
-                  <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-                </Modal.Open>
-              </Menus.List>
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
 
-              <Modal.Window name="edit">
-                <CreateDoctorForm doctorToEdit={doctor} />
-              </Modal.Window>
+            <Modal.Window name="edit">
+              <CreateProductForm productToEdit={product} />
+            </Modal.Window>
 
-              <Modal.Window name="delete">
-                <ConfirmDelete
-                  resourceName="doctors"
-                  disabled={isDeleting}
-                  onConfirm={() => deleteDoctor(doctorId)}
-                />
-              </Modal.Window>
-            </Menus.Menu>
-          </Modal>
-        </div>
-      )} */}
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="products"
+                disabled={isDeleting}
+                onConfirm={() => deleteProduct(productId)}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </div>
+      {/* )} */}
     </Table.Row>
   );
 }

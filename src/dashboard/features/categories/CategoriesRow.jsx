@@ -40,7 +40,6 @@ const ChangedField = styled.div`
 
 function CategoriesRow({ category }) {
   const { isDeleting, deleteCategory } = useDeleteCategory();
-  const { isCreating, createCategory } = useCreateCategory();
 
   const {
     id: categoryId,
@@ -53,18 +52,6 @@ function CategoriesRow({ category }) {
     status,
     subCategories,
   } = category;
-  // function handleDuplicate() {
-  //   createCategory({
-  //     name: `Copy of ${name}`,
-  //     product,
-  //     trending,
-  //     slug,
-  //     sortDesc,
-  //     productTags,
-  //     status,
-  //     subCategories,
-  //   });
-  // }
 
   return (
     <Table.Row>
@@ -80,13 +67,6 @@ function CategoriesRow({ category }) {
             <Menus.Toggle id={categoryId} />
 
             <Menus.List id={categoryId}>
-              {/* <Menus.Button
-                icon={<FiSettings />}
-                onClick={handleDuplicate}
-                disabled={isCreating}
-              >
-                Duplicate
-              </Menus.Button> */}
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
               </Modal.Open>

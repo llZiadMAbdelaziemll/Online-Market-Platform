@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import Container from "./Container";
 import Row from "./Row";
-import SectionHeader from "./SectionHeader";
 import BasicCard from "./BasicCard";
 import NewCard from "../features/home/NewCard";
 import { useProducts } from "../../dashboard/features/products/useProducts";
 import CategoriesFilterOperations from "../features/home/CategoriesFilterOperations";
 import { useSearchParams } from "react-router-dom";
+import Heading from "./Heading";
+import Description from "./Description";
 const StyledPopularProducts = styled.section`
   margin-bottom: 10rem;
   & div.alignedTopRow {
@@ -16,6 +17,17 @@ const StyledPopularProducts = styled.section`
     gap: 4rem;
   }
 `;
+
+const SectionHeader = styled.div`
+  margin: auto !important;
+  max-width: 60rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: center;
+  margin-bottom: 3rem !important;
+`;
+
 const LeftSide = styled.div`
   display: flex;
   flex-direction: column;
@@ -30,6 +42,7 @@ const RightSide = styled.div`
   gap: 1.4rem;
   min-width: 100rem;
 `;
+
 const PopularProducts = () => {
   const { products } = useProducts();
   const [searchParams] = useSearchParams();
@@ -38,35 +51,34 @@ const PopularProducts = () => {
 
   let filteredProducts;
   if (filterValue === "all") filteredProducts = products;
-  if (filterValue === "electronics")
+  if (filterValue === "asian cuisine")
     filteredProducts = products.filter(
-      (product) => product.category === "electronics"
+      (product) => product.category === "asian cuisine"
     );
 
-  if (filterValue === "clothing")
+  if (filterValue === "italian cuisine")
     filteredProducts = products.filter(
-      (product) => product.category === "clothing"
+      (product) => product.category === "italian cuisine"
     );
-  if (filterValue === "books")
+  if (filterValue === "beverages")
     filteredProducts = products.filter(
-      (product) => product.category === "books"
+      (product) => product.category === "beverages"
     );
-  if (filterValue === "sports")
+  if (filterValue === "soups & stews")
     filteredProducts = products.filter(
-      (product) => product.category === "sports"
+      (product) => product.category === "soups & stews"
     );
   return (
     <StyledPopularProducts>
       <Container>
         <Row>
           <SectionHeader>
-            <SectionHeader.HeaderHead>
-              Popular Products
-            </SectionHeader.HeaderHead>
-            <SectionHeader.HeaderDescription>
+            <Heading as="h2">Popular Products</Heading>
+
+            <Description>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore lacus vel facilisis.
-            </SectionHeader.HeaderDescription>
+            </Description>
           </SectionHeader>
         </Row>
         <Row className="alignedTopRow">

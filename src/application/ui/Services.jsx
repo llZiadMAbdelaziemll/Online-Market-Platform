@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Container from "./Container";
-import Row from "./Row";
-import ServicesCard from "./ServicesCard";
 import {
   RiRedPacketLine,
   RiTruckLine,
   RiMoneyDollarBoxLine,
 } from "react-icons/ri";
 import { FaHeadset } from "react-icons/fa";
+import Container from "./Container";
+import Row from "./Row";
+import ServicesCard from "./ServicesCard";
+
 const StyledServices = styled.section`
   margin-bottom: 10rem;
 `;
@@ -17,6 +18,7 @@ const Cards = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+
 const Services = () => {
   return (
     <StyledServices>

@@ -15,7 +15,9 @@ const StyledList = styled.div`
 const List = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 `;
 const WishList = () => {
   const { isLoading, error, products } = useFavorites();

@@ -11,13 +11,12 @@ function DProducts() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">All doctors</Heading>
+        <Heading as="h1">All products</Heading>
         <ProductTableOperations />
       </Row>
 
       <Row>
         <ProductTable />
-        {/* {userRole === "admin" && <AddDoctor />} */}
       </Row>
     </>
   );

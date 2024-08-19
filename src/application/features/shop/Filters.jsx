@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Checkbox from "../../ui/Checkbox";
-import { useCategories } from "../../../dashboard/features/categories/useCategories";
 import Heading from "../../ui/Heading";
-import CheckBoxFilter from "../../ui/CheckBoxFilter";
 import CategoriesFilterOperations from "./CategoriesFilterOperations";
 import ColorFilterOperations from "./ColorFilterOperations";
 import PriceFilter from "./PriceFilter";
-import { useProducts } from "../../../dashboard/features/products/useProducts";
 import TagsFilterOperations from "./TagsFilterOperations";
 
 const StyledFilters = styled.div`

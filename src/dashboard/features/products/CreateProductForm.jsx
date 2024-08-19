@@ -10,42 +10,103 @@ import Select from "../../../basicUi/Select";
 import { getToday } from "../../../utils/helpers";
 import { useCreateProduct } from "./useCreateProduct";
 import { useCategories } from "../categories/useCategories";
+import { useEditProduct } from "./useEditProduct";
 
-function CreateProductForm() {
-  const { createProduct } = useCreateProduct();
+function CreateProductForm({ productToEdit = {}, onCloseModal }) {
+  const { isCreating, createProduct } = useCreateProduct();
+  const { isEditing, editProduct } = useEditProduct();
   const { categories } = useCategories();
+  const { id: editId, ...editValues } = productToEdit;
+  const isEditSession = Boolean(editId);
+
+  console.log(isEditSession);
+  const isWorking = isCreating || isEditing;
+
   const { register, handleSubmit, reset, control, formState } = useForm({
-    defaultValues: {},
+    defaultValues: isEditSession ? editValues : {},
   });
   const { errors } = formState;
 
+  // past handle function *************
+  // const handleCreateProduct = (data) => {
+  //   const { image1, image2, image3, image4, image5, image6, image7, ...other } =
+  //     data;
+  //
+
+  //   // const image = [
+  //   //   image1[0],
+  //   //   image2[0],
+  //   //   image3[0],
+  //   //   image4[0],
+  //   //   image5[0],
+  //   //   image6[0],
+  //   //   image7[0],
+  //   // ];
+
+  //   // const tagArray = data?.tag.split(",");
+
+  //   // createProduct(
+  //   //   { ...other, image, date: getToday(), status: "Available", tag: tagArray },
+  //   //   {
+  //   //     onSuccess: (data) => {
+  //   //       reset();
+  //   //       // onCloseModal?.();
+  //   //     },
+  //   //   }
+  //   // );
+  // };
   const handleCreateProduct = (data) => {
     console.log(data);
     const { image1, image2, image3, image4, image5, image6, image7, ...other } =
       data;
-    const image = [
-      image1[0],
-      image2[0],
-      image3[0],
-      image4[0],
-      image5[0],
-      image6[0],
-      image7[0],
-    ];
-    console.log(image);
+    console.log(typeof data.image === "string");
+    const image =
+      typeof data.image === "string"
+        ? [image1, image2, image3, image4, image5, image6, image7]
+        : [
+            image1[0],
+            image2[0],
+            image3[0],
+            image4[0],
+            image5[0],
+            image6[0],
+            image7[0],
+          ];
 
-    createProduct(
-      { ...other, image: image, date: getToday(), status: "Pending" },
-      {
-        onSuccess: (data) => {
-          reset();
-          // onCloseModal?.();
+    const tagArray = data?.tag.split(",");
+    console.log(image);
+    if (isEditSession)
+      editProduct(
+        { newProductData: { ...other, image }, id: editId },
+        {
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      createProduct(
+        {
+          ...other,
+          image,
+          date: getToday(),
+          status: "Available",
+          tag: [...tagArray],
         },
-      }
-    );
+        {
+          onSuccess: (data) => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
   };
   return (
-    <Form type="full" onSubmit={handleSubmit(handleCreateProduct)}>
+    <Form
+      type={onCloseModal ? "modal" : "full"}
+      onSubmit={handleSubmit(handleCreateProduct)}
+    >
       <FormRow size="layout">
         <FormRow>
           <ImageBox register={register} id="image1">
@@ -97,7 +158,7 @@ function CreateProductForm() {
               <Controller
                 name="category" // The name should match the key in your data object
                 control={control}
-                defaultValue="Clothing" // Set the default value as needed
+                defaultValue="beverages" // Set the default value as needed
                 render={({ field }) => {
                   return (
                     <Select
@@ -131,25 +192,45 @@ function CreateProductForm() {
           </FormRow>
           <FormRow size="half">
             <FormRow label="Color">
-              <Input type="text" id="color" />
+              <Input
+                type="text"
+                id="color"
+                {...register("color", {
+                  required: "This field is required",
+                })}
+              />
             </FormRow>
-
             <FormRow label="Quantity">
-              <Input type="number" defaultValue="1" id="quantity" />
+              <Input
+                type="text"
+                id="stock"
+                {...register("stock", {
+                  required: "This field is required",
+                })}
+              />
             </FormRow>
           </FormRow>
-          {/* <FormRow label="Size">
-            <Input type="text" id="size" />
-          </FormRow> */}
 
-          <FormRow label="Price">
-            <Input
-              type="text"
-              id="price"
-              {...register("price", {
-                required: "This field is required",
-              })}
-            />
+          <FormRow size="half">
+            <FormRow label="Price">
+              <Input
+                type="text"
+                id="price"
+                {...register("price", {
+                  required: "This field is required",
+                })}
+              />
+            </FormRow>
+
+            <FormRow label="offer">
+              <Input
+                type="text"
+                id="offer"
+                {...register("offer", {
+                  required: "This field is required",
+                })}
+              />
+            </FormRow>
           </FormRow>
 
           <FormRow label="Full Detail">
@@ -169,7 +250,9 @@ function CreateProductForm() {
       </FormRow>
 
       <FormRow>
-        <Button>Submit</Button>
+        <Button disabled={isWorking}>
+          {isEditSession ? "Edit" : "Submit"}
+        </Button>
       </FormRow>
     </Form>
   );

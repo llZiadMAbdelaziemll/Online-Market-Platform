@@ -12,6 +12,7 @@ import Policy from "./application/pages/Policy";
 import Cart from "./application/pages/Cart";
 import WishList from "./application/pages/WishList";
 import Account from "./application/pages/Account";
+import Checkout from "./application/pages/Checkout";
 import DAppLayout from "./dashboard/ui/DAppLayout";
 import Dashboard from "./dashboard/pages/Dashboard";
 import DProducts from "./dashboard/pages/DProducts";
@@ -22,6 +23,7 @@ import { DarkModeProvider } from "./context/DarkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Product from "./application/pages/Product";
 import ProtectedRoute from "./application/ui/ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +69,7 @@ function App() {
               /> */}
               <Route path="account" element={<Account />} />
               <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
               <Route path="wishlist" element={<WishList />} />
               {/* <Route path="wishlist/:productId" element={<Product />} /> */}
 
@@ -88,6 +91,33 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+
+        <Toaster
+          position="right-right"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 5000,
+            },
+            style: {
+              // fontSize: "16px",
+              fontSize: "14px",
+              maxWidth: "500px",
+              // padding: "16px 24px",
+              padding: "15px 20px",
+              backgroundColor: "var(--color-grey-0)",
+              color: "var(--color-grey-700)",
+              borderBottom: "5px solid #64b496",
+              borderRadius: "var(--border-radius-sm)",
+              boxShadow: "var(--shadow-sm)",
+              zIndex: "999",
+            },
+          }}
+        />
       </QueryClientProvider>
     </DarkModeProvider>
   );

@@ -10,6 +10,9 @@ const StyledTable = styled.div`
   border-radius: var(--border-radius-md);
   overflow: auto;
   border-collapse: collapse;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CommonRow = styled.div`

@@ -39,7 +39,7 @@ const StyledLink = styled(NavLink)`
 `;
 
 const HeaderLinks = () => {
-  const { user, isLoading, isAuthenticated } = useUser();
+  const { user, isAuthenticated } = useUser();
   const { logout, isLoading: isLoggingOut } = useLogout();
   return (
     <Nav>
@@ -49,16 +49,20 @@ const HeaderLinks = () => {
       <StyledLink to="/contactus">Contact Us</StyledLink>
       <StyledLink to="/policy">Policy</StyledLink>
 
-      {user?.user_metadata?.role === "buyer" || (
-        <StyledLink to="/dashboard">DASHBOARD</StyledLink>
-      )}
       {!isAuthenticated ? (
         <>
           <StyledLink to="/login">Log In</StyledLink>
           <StyledLink to="/register">Register</StyledLink>
         </>
       ) : (
-        <StyledLink onClick={() => logout()}>Log out</StyledLink>
+        <>
+          {user?.user_metadata?.role === "buyer" || (
+            <StyledLink to="/dashboard">DASHBOARD</StyledLink>
+          )}
+          <StyledLink onClick={() => logout()} disabled={isLoggingOut}>
+            Log out
+          </StyledLink>
+        </>
       )}
     </Nav>
   );

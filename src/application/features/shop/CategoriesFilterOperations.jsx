@@ -7,10 +7,13 @@ export default function CategoriesFilterOperations() {
       filterField="category"
       options={[
         // { value: "all", label: "All" },
-        { value: "electronics", label: "Electronics" },
-        { value: "clothing", label: "Clothing" },
-        { value: "books", label: "Books" },
-        { value: "sports", label: "Sports" },
+        { value: "asian cuisine", label: "asian cuisine" },
+        { value: "italian cuisine", label: "italian cuisine" },
+        { value: "beverages", label: "beverages" },
+        { value: "soups & stews", label: "soups & stews" },
+        { value: "healthy", label: "healthy" },
+        { value: "desserts", label: "desserts" },
+        { value: "mexican cuisine", label: "mexican cuisine" },
       ]}
     />
   );

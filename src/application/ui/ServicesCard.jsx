@@ -24,6 +24,7 @@ const StyledIcon = styled.div`
     line-height: 4rem;
   }
 `;
+
 const ServicesCard = ({ icon, topic }) => {
   return (
     <StyledServicesCard>

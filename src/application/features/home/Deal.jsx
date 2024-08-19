@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Container from "../../ui/Container";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
-import { Link } from "react-router-dom";
 import Description from "../../ui/Description";
 import DateCounter from "../../ui/DateCounter";
+import Code from "../../ui/Code";
+
 const StyledDeal = styled.div`
   background: url(./deal/bg-deal.jpg) no-repeat;
   background-size: cover;
@@ -29,11 +30,7 @@ const Tag = styled.div`
   gap: 0.6rem;
   /* margin-bottom: 1.2rem; */
 `;
-const Trust = styled.span`
-  color: var(--color-green-400);
-  font-weight: bold;
-  font-size: 2rem;
-`;
+
 const Span = styled.span`
   color: #212529;
   font-size: 1.6rem;
@@ -48,7 +45,7 @@ const Deal = () => {
         <Row>
           <Content>
             <Tag>
-              <Trust>100%</Trust>
+              <Code>100%</Code>
               <Span>Off</Span>
             </Tag>
 

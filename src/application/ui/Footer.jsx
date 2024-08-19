@@ -24,15 +24,19 @@ const StyledFooter = styled.footer`
 const Footer1 = styled.div`
   border-bottom: 1px solid #e9e9e9;
   padding-bottom: 10rem;
+
+  & a:first-of-type {
+    align-items: start;
+
+    & button {
+      padding-top: 0.4rem;
+    }
+  }
 `;
 const Footer2 = styled.div`
   padding: 2rem 0;
 `;
-const CombinedLink = styled.div`
-  display: flex;
-  align-items: center;
-  /* gap: 1rem; */
-`;
+
 const P = styled.p`
   font-size: 1.4rem;
   margin: auto;
@@ -72,7 +76,7 @@ const Footer = () => {
                 Carrot is the biggest market of grocery products. Get
                 <br /> your daily needs from our store.
               </Description>
-              <CombinedLink>
+              <IconLink>
                 <ButtonIcon>
                   <HiOutlineLocationMarker color="#64b496" />
                 </ButtonIcon>
@@ -80,19 +84,19 @@ const Footer = () => {
                   51 Green St.Huntington ohaio beach ontario, NY
                   <br /> 11746 KY 4783, USA.
                 </StyledLink>
-              </CombinedLink>
-              <CombinedLink>
+              </IconLink>
+              <IconLink>
                 <ButtonIcon>
                   <HiOutlineMail color="#64b496" />
                 </ButtonIcon>
                 <StyledLink>example@email.com</StyledLink>
-              </CombinedLink>
-              <CombinedLink>
+              </IconLink>
+              <IconLink>
                 <ButtonIcon>
                   <IoCallOutline color="#64b496" />
                 </ButtonIcon>
                 <StyledLink>+91 123 4567890</StyledLink>
-              </CombinedLink>
+              </IconLink>
               {/* <IconLink
               position="footer"
               icon={<HiOutlineLocationMarker />}

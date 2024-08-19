@@ -1,4 +1,4 @@
-import supabase, { supabaseUrl } from "./supabase";
+import supabase from "./supabase";
 
 export async function signup(data) {
   const { firstName, lastName, email, password, phone, city, role } = data;

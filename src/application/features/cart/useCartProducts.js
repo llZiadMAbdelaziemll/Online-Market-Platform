@@ -3,17 +3,15 @@ import { getCartProducts } from "../../../services/apiCart";
 import { useUser } from "../auth/useUser";
 
 export function useCartProducts() {
-  const {
-    user: { id },
-  } = useUser();
+  const { user } = useUser();
 
   const {
     isLoading,
     data: products,
     error,
   } = useQuery({
-    queryKey: ["cart", id],
-    queryFn: () => getCartProducts(id),
+    queryKey: ["cart", user?.id],
+    queryFn: () => getCartProducts(user?.id),
     retry: false,
   });
 

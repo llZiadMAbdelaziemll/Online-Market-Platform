@@ -17,7 +17,6 @@ const StyledToggle = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
-
   &:hover {
     background-color: var(--color-grey-100);
   }

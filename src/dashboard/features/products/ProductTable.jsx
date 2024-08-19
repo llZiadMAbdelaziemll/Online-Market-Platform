@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
+import Pagination from "../../ui/Pagination";
 import Menus from "../../ui/Menus";
 import ProductRow from "./ProductRow";
 import { useProducts } from "./useProducts";
@@ -17,11 +18,11 @@ const TableTopic = styled.div`
 `;
 
 function ProductTable() {
-  const { isLoading, products } = useProducts();
+  const { isLoading, count, products } = useProducts();
   const [searchParams] = useSearchParams();
 
-  // if (isLoading) return <Spinner />;
-  // if (!products.length) return <Empty resourceName="products" />;
+  if (isLoading) return <Spinner />;
+  if (!products.length) return <Empty resourceName="products" />;
 
   // 2) SORT
   const sortBy = searchParams.get("sortBy") || "date-asc";
@@ -43,11 +44,11 @@ function ProductTable() {
   if (field === "price") {
     sortedProducts = products?.sort((a, b) => (a[field] - b[field]) * modifier);
   }
-
+  console.log(products);
   return (
     <Menus>
-      <Table columns="60px 150px 90px 80px 110px 90px 110px 140px 20px">
-        <TableTopic>Operations</TableTopic>
+      <Table columns="60px 150px 90px 80px 110px 90px 120px 160px 20px">
+        <TableTopic>Products</TableTopic>
         <Table.Header>
           <div>Image</div>
           <div>Name</div>
@@ -66,6 +67,9 @@ function ProductTable() {
             <ProductRow product={product} key={product.id} />
           )}
         />
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

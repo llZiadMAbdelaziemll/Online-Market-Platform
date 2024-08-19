@@ -1,8 +1,8 @@
 import React from "react";
+import styled from "styled-components";
 import Container from "../../ui/Container";
 import Row from "../../ui/Row";
 import ColoredCard from "./ColoredCard";
-import styled from "styled-components";
 const StyledColoredProducts = styled.section`
   margin-bottom: 10rem;
 `;

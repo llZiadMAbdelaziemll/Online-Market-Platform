@@ -1,16 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Container from "../../ui/Container";
-import { useCartProducts } from "./useCartProducts";
 import { useDeleteFromCart } from "./useDeleteFromCart";
-import Spinner from "../../../basicUi/Spinner";
 import { formatCurrency } from "../../../utils/helpers";
 import { MdDelete } from "react-icons/md";
 import Empty from "../../../basicUi/Empty";
-
-const StyledCart = styled.div`
-  margin: 10rem 0 5rem;
-`;
 
 const StyledHeader = styled.div`
   font-size: 1.4rem;
@@ -73,50 +66,44 @@ const Photo = styled.div`
     border-radius: 5px;
   }
 `;
-export default function CartTable() {
-  const { isLoading, products } = useCartProducts();
+export default function CartTable({ products }) {
   const { isDeleting, deleteFromCart } = useDeleteFromCart();
-  if (isLoading) return <Spinner />;
   if (products?.length === 0) return <Empty resource="products" />;
 
   return (
-    <StyledCart>
-      <Container>
-        <StyledHeader>
-          <div>Product</div>
-          <div>Price</div>
-          <div>Quantity</div>
-          <div>Total</div>
-          <div>Action</div>
-        </StyledHeader>
-        <StyledBody>
-          {products ? (
-            products?.map((product) => {
-              return (
-                <StyledRow key={product.id}>
-                  <Photo>
-                    <img src="https://maraviyainfotech.com/projects/carrot/carrot-v21/carrot-html/assets/img/product/1.jpg" />
-                    <div>{product?.name}</div>
-                  </Photo>
-                  <div>{formatCurrency(product?.price)}</div>
-                  <div>{product?.quantity}</div>
-                  <div>
-                    {formatCurrency(product?.price * product?.quantity)}
-                  </div>
-                  <div
-                    onClick={() => deleteFromCart(product?.id)}
-                    disabled={isDeleting}
-                  >
-                    <MdDelete />
-                  </div>
-                </StyledRow>
-              );
-            })
-          ) : (
-            <Empty resource="products" />
-          )}
-        </StyledBody>
-      </Container>
-    </StyledCart>
+    <>
+      <StyledHeader>
+        <div>Product</div>
+        <div>Price</div>
+        <div>Quantity</div>
+        <div>Total</div>
+        <div>Action</div>
+      </StyledHeader>
+      <StyledBody>
+        {products ? (
+          products?.map((product) => {
+            return (
+              <StyledRow key={product.id}>
+                <Photo>
+                  <img src={product?.image?.at(0)} />
+                  <div>{product?.name}</div>
+                </Photo>
+                <div>{formatCurrency(product?.price)}</div>
+                <div>{product?.quantity}</div>
+                <div>{formatCurrency(product?.price * product?.quantity)}</div>
+                <div
+                  onClick={() => deleteFromCart(product?.id)}
+                  disabled={isDeleting}
+                >
+                  <MdDelete />
+                </div>
+              </StyledRow>
+            );
+          })
+        ) : (
+          <Empty resource="products" />
+        )}
+      </StyledBody>
+    </>
   );
 }

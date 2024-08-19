@@ -8,7 +8,7 @@ export function useAddToFavorites() {
   const { mutate: addProductToFavorites, isLoading: isCreating } = useMutation({
     mutationFn: addToFavorites,
     onSuccess: () => {
-      toast.success(" product get added successfully to favorites");
+      toast.success("product get added successfully to favorites");
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
     },
     onError: (err) => toast.error(err.message),

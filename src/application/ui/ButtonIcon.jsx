@@ -5,7 +5,7 @@ const ButtonIcon = styled.button`
   border: none;
   padding: 0 0.6rem 0 0;
   /* border-radius: var(--border-radius-sm); */
-  transition: all 0.2s;
+  /* transition: all 0.2s; */
 
   /* &:hover {
     color: var(--color-green-400);

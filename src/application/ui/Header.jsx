@@ -7,17 +7,8 @@ import HeaderMenus from "./HeaderMenus";
 import HeaderLinks from "./HeaderLinks";
 import IconLink from "./IconLink";
 import { IoCallOutline } from "react-icons/io5";
+import ButtonIcon from "./ButtonIcon";
 
-const StyledHeader = styled.header``;
-// const BorderDiv = styled.div`
-//   padding: 2rem 0;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   &:first-child {
-//     border-bottom: 1px solid var(--color-grey-400);
-//   }
-// `;
 const StyledHeaderOne = styled.div`
   padding: 2rem 0;
 
@@ -28,7 +19,7 @@ const StyledHeaderTwo = styled.div`
 `;
 const Header = () => {
   return (
-    <StyledHeader>
+    <header>
       <Container>
         <StyledHeaderOne>
           <Row>
@@ -41,11 +32,16 @@ const Header = () => {
         <StyledHeaderTwo>
           <Row>
             <HeaderLinks />
-            <IconLink icon={<IoCallOutline />} name="+123 ( 456 ) ( 7890 )" />
+            <IconLink>
+              <ButtonIcon>
+                <IoCallOutline />
+              </ButtonIcon>
+              <span>+123 ( 456 ) ( 7890 )</span>
+            </IconLink>
           </Row>
         </StyledHeaderTwo>
       </Container>
-    </StyledHeader>
+    </header>
   );
 };
 

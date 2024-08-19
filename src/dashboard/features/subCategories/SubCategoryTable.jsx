@@ -18,7 +18,7 @@ const SubCategoryTable = () => {
   return (
     <Menus>
       <Table columns="75px 200px 70px 80px 90px 30px">
-        <TableTopic>Operations</TableTopic>
+        <TableTopic>Sub Categories</TableTopic>
         <Table.Header>
           <div>Name</div>
 

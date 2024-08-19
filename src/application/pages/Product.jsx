@@ -22,6 +22,10 @@ import { useUser } from "../features/auth/useUser";
 import { useNavigate } from "react-router-dom";
 import { useAddToCart } from "../features/cart/useAddToCart";
 import { useAddToFavorites } from "../features/favorites/useAddToFavorites";
+import { useCartProducts } from "../features/cart/useCartProducts";
+import { useFavorites } from "../features/favorites/useFavorites";
+import toast from "react-hot-toast";
+import { useDeleteFavorites } from "../features/favorites/useDeleteFavorites";
 
 const StyledProduct = styled.section`
   margin: 10rem 0;
@@ -46,8 +50,8 @@ const MiniImages = styled.div`
   justify-content: space-between;
 
   & img {
-    min-width: 6.84rem;
-    min-height: 6.84rem;
+    width: 6.84rem;
+    height: 6.84rem;
     border: 1px solid #e9e9e9;
     background-color: #f7f7f8;
     border-radius: 5px;
@@ -202,7 +206,14 @@ const Icon = styled.div`
       color: var(--color-green-0);
     }
   }
+  &.exist {
+    background-color: var(--color-green-400);
+    & svg {
+      color: white;
+    }
+  }
 `;
+
 export default function Product() {
   const [input, setInput] = useState(1);
   const navigate = useNavigate();
@@ -212,6 +223,10 @@ export default function Product() {
   const { user, isAuthenticated } = useUser();
   const { addProductToCart } = useAddToCart();
   const { addProductToFavorites } = useAddToFavorites();
+  const { products: favoriteProducts } = useFavorites();
+  const { products: cartProducts } = useCartProducts();
+  const { isDeleting, deleteFromFavorites } = useDeleteFavorites();
+
   console.log(product);
   if (isLoading) return <Spinner />;
   if (!product) return <Empty resourceName="product" />;
@@ -232,12 +247,20 @@ export default function Product() {
   } = product;
 
   const offerValue = price * offer;
+  const isExistFavorites = favoriteProducts?.some(
+    (p) => p?.product_id == productId
+  );
+  const isExistCart = cartProducts?.some((p) => p?.product_id == productId);
+
+  const productInFavorite = favoriteProducts?.filter(
+    (p) => p?.product_id == productId
+  );
 
   function handleAddCart(e) {
     e.preventDefault();
 
     if (!isAuthenticated) navigate("/login");
-    else {
+    if (!isExistCart) {
       addProductToCart({
         image,
         name,
@@ -246,6 +269,8 @@ export default function Product() {
         product_id: productId,
         user_id: user?.id,
       });
+    } else {
+      toast.error("The product already exists in Cart");
     }
   }
 
@@ -253,8 +278,9 @@ export default function Product() {
     data.preventDefault();
     const quantity = data?.quantity ? quantity : 1;
     if (!isAuthenticated) navigate("/login");
-    else {
+    if (!isExistFavorites) {
       addProductToFavorites({
+        image,
         category,
         review,
         fullDetails,
@@ -265,6 +291,8 @@ export default function Product() {
         product_id: productId,
         user_id: user?.id,
       });
+    } else {
+      deleteFromFavorites(productInFavorite?.at(0)?.id);
     }
   }
   return (
@@ -356,7 +384,7 @@ export default function Product() {
                   </OperationButtons>
                   <Button onClick={handleAddCart}>Add To Cart</Button>
 
-                  <Icon>
+                  <Icon className={`${isExistFavorites ? "exist" : ""}`}>
                     <FaRegHeart onClick={handleAddFavorites} />
                   </Icon>
                 </form>

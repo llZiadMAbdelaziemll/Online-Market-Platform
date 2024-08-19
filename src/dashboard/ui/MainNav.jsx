@@ -91,13 +91,6 @@ function MainNav() {
             <span>Add Sub Category</span>
           </StyledNavLink>
         </li>
-
-        <li>
-          <StyledNavLink to="settings">
-            <RiSettings4Line />
-            <span>Sittings</span>
-          </StyledNavLink>
-        </li>
       </NavList>
     </nav>
   );

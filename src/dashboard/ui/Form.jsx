@@ -48,13 +48,17 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
+      display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       gap: 0.8rem;
-      width: 80rem;
+      max-height: 80vh;
+      overflow-y: scroll !important;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     `}
     
   overflow: hidden;

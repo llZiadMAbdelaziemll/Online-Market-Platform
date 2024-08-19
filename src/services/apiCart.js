@@ -3,7 +3,7 @@ import supabase from "./supabase";
 export async function getCartProducts(id) {
   const { data, error } = await supabase
     .from("cart")
-    .select("*")
+    .select("*,products(*)")
     .eq("user_id", id);
 
   if (error) {

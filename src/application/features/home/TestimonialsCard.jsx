@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-
 import styled from "styled-components";
-import { RiShoppingBagLine } from "react-icons/ri";
-import { FaRegUser, FaRegHeart, FaRegEye } from "react-icons/fa";
 import Small from "../../ui/Small";
 import Heading from "../../ui/Heading";
 import Description from "../../ui/Description";
 import StarRating from "../../../utils/StarRating";
-import ReactImageZoom from "react-image-zoom";
 
 const ImageDiv = styled.div`
   width: 100%;
@@ -35,25 +31,6 @@ const Img = styled.img`
   height: 120px;
   border-radius: 100px;
   border: 13px solid #fff;
-`;
-const Icon = styled.div`
-  height: 35px;
-  width: 35px;
-  position: absolute;
-  bottom: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #f7f7f8;
-  border: 1px solid #e9e9e9;
-  background-color: aliceblue;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & svg {
-    color: var(--color-green-400);
-    cursor: pointer;
-  }
 `;
 
 const StyledTestCard = styled.div`

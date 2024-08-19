@@ -1,20 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import Container from "../../ui/Container";
-import Row from "../../ui/Row";
-import Heading from "../../ui//Heading";
 import { Link } from "react-router-dom";
-const Main = styled.main`
-  /* background: url(./hero/banner-2.jpg) no-repeat;
-  background-size: cover; */
-  /* height: calc(100vh - 13rem); */
-`;
+import styled from "styled-components";
+import Heading from "../../ui/Heading";
+import StyledLinkButton from "../../ui/StyledLinkButton";
+
 const Content = styled.div`
   position: absolute;
   left: 8.84rem;
-  /* top: 12rem; */
   top: 14rem;
   z-index: 2;
+
+  & a {
+    margin-top: 3rem;
+  }
 `;
 const Tag = styled.div`
   display: flex;
@@ -55,7 +53,7 @@ const StyledLink = styled(Link)`
 `;
 const Hero = () => {
   return (
-    <Main>
+    <main>
       <div
         id="carouselExampleSlidesOnly"
         className="carousel slide "
@@ -82,7 +80,7 @@ const Hero = () => {
                 <br />
                 reiciendis beatae consequuntur.
               </P>
-              <StyledLink to="/shop">Shop Now</StyledLink>
+              <StyledLinkButton to="/shop">Shop Now</StyledLinkButton>
             </Content>
           </div>
           <div className="carousel-item p-relative">
@@ -102,61 +100,12 @@ const Hero = () => {
                 <br />
                 reiciendis beatae consequuntur.
               </P>
-              <StyledLink to="/shop">Shop Now</StyledLink>
+              <StyledLinkButton to="/shop">Shop Now</StyledLinkButton>
             </Content>
           </div>
         </div>
       </div>
-      {/* <Content id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
- 
-  <div className="carousel-inner">
-    <div className="carousel-item active">
-      <img src="images/main-banner.jpg" className="d-block w-100" alt="..."/>
-      
-      <div className="main-banner-content d-none d-md-block position-absolute">
-              <h4>SUPERCHARGED</h4>
-                  <h5>ipad s13+ Pro.</h5>
-                  <p>From $999.00 or $41.62/mo.</p>
-                  <Link className='button'>BUY NOW</Link>
-      </div>
-    </div>
-    <div className="carousel-item">
-      <img src="images/main-banner-1.jpg" className="d-block w-100" alt="..."/>
-      <div className="main-banner-content d-none d-md-block position-absolute">
-      <h4>SUPERCHARGED</h4>
-                  <h5>ipad s13+ Pro.</h5>
-                  <p>From $999.00 or $41.62/mo.</p>
-                  <Link className='button'>BUY NOW</Link>
-      </div>
-    </div>
-    <div className="carousel-item">
-      <img src="images/home-3.jpeg" className="d-block w-100" alt="..."/>
-      <div className="main-banner-content d-none d-md-block position-absolute">
-      <h4>SUPERCHARGED</h4>
-                  <h5>ipad s13+ Pro.</h5>
-                  <p>From $999.00 or $41.62/mo.</p>
-                  <Link className='button'>BUY NOW</Link>
-      </div>
-    </div>
-  </div>
-  </Content> */}
-      {/* <Content>
-            <Tag>
-              <Span>100%</Span>
-              <Heading as="h5">Organic Fruits</Heading>
-            </Tag>
-
-            <Heading as="h1">
-              Explore fresh &<br /> juicy fruits.
-            </Heading>
-            <P>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-              <br />
-              reiciendis beatae consequuntur.
-            </P>
-            <StyledLink>Shop Now</StyledLink>
-          </Content> */}
-    </Main>
+    </main>
   );
 };
 

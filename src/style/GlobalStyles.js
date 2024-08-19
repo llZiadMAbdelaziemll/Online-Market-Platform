@@ -14,6 +14,18 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-600: #0f0f0f;
   --color-grey-700: #000;
 
+ /* Dashboard */
+  --color-dashboard-0: #fff;
+  --color-dashboard-50: #f9fafb;
+  --color-dashboard-100: #f3f4f6;
+  --color-dashboard-200: #e5e7eb;
+  --color-dashboard-300: #d1d5db;
+  --color-dashboard-400: #9ca3af;
+  --color-dashboard-500: #6b7280;
+  --color-dashboard-600: #4b5563;
+  --color-dashboard-700: #374151;
+  --color-dashboard-800: #1f2937;
+  --color-dashboard-900: #111827;
 
   --color-green-0: #fff;
   --color-green-50: #f0f8f5;
@@ -63,6 +75,19 @@ const GlobalStyles = createGlobalStyle`
   --color-grey-200: #313a4b;
   --color-grey-100: #1c2236;
   --color-grey-0: #151a2b;
+
+  /* Dashboard */
+  --color-dashboard-0: #18212f;
+--color-dashboard-50: #111827;
+--color-dashboard-100: #1f2937;
+--color-dashboard-200: #374151;
+--color-dashboard-300: #4b5563;
+--color-dashboard-400: #6b7280;
+--color-dashboard-500: #9ca3af;
+--color-dashboard-600: #d1d5db;
+--color-dashboard-700: #e5e7eb;
+--color-dashboard-800: #f3f4f6;
+--color-dashboard-900: #f9fafb;
 
   --color-green-0: #fff;
   --color-green-50: #f0f8f5;
@@ -135,7 +160,8 @@ const GlobalStyles = createGlobalStyle`
   margin: 0;
 
   /* Creating animations for dark mode */
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+  transition: color 0.05s ease-in-out, background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+  /* transition: all 0.3s; */
 }
 
 html {
@@ -149,7 +175,9 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
-  transition: color 0.3s, background-color 0.3s;
+  transition: color 0.05s, background-color 0.3s;
+  /* transition: all 0.3s ; */
+
 
 }
 
