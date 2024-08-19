@@ -73,13 +73,12 @@ export async function createEditProduct(newProduct, id) {
   let query = supabase.from("products");
 
   // A) CREATE
-  if (!id)
-    query = query.insert([{ ...other, image: [...imagePaths], tag: [tag] }]);
+  if (!id) query = query.insert([{ ...other, image: [...imagePaths], tag }]);
 
   // // B) EDIT
   if (id)
     query = query
-      .update({ ...other, image: [...imagePaths], tag: [tag] })
+      .update({ ...other, image: [...imagePaths], tag })
       .eq("id", id);
 
   const { data, error } = await query.select().single();

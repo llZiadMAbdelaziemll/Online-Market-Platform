@@ -1,14 +1,13 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import Filters from "../../features/shop/Filters";
-import { useProducts } from "../../../dashboard/features/products/useProducts";
 import BreadCrumb from "../../ui/BreadCrumb";
 import Meta from "../../ui/Meta";
 import styled from "styled-components";
 import Container from "../../ui/Container";
 import Row from "../../ui/Row";
 import BasicCard from "../../ui/BasicCard";
-import Pagination from "../../ui/Pagination";
+import { useAllProducts } from "../../../dashboard/features/products/useAllProducts";
 
 const StyledShop = styled.section`
   margin: 10rem 0;
@@ -33,12 +32,13 @@ const ProductsSide = styled.div`
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  /* overflow: scroll;
-  height: 106vh;
+  min-width: 95.5rem;
+  overflow: scroll;
+  height: 77.02rem;
 
   &::-webkit-scrollbar {
     display: none;
-  } */
+  }
 `;
 const Cards = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ const Cards = styled.div`
   flex-wrap: wrap;
 `;
 const ShopContent = () => {
-  const { count, products } = useProducts();
+  const { products } = useAllProducts();
   const [searchParams] = useSearchParams();
 
   // 1) FILTER
@@ -104,7 +104,7 @@ const ShopContent = () => {
               {/* <BasicCard />
               <BasicCard /> */}
 
-              <Pagination count={count} />
+              {/* <Pagination count={count} /> */}
             </ProductsSide>
           </Row>
         </Container>
