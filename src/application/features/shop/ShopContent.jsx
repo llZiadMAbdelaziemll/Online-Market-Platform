@@ -11,7 +11,6 @@ import { useAllProducts } from "../../../dashboard/features/products/useAllProdu
 
 const StyledShop = styled.section`
   margin: 10rem 0;
-
   & div.alignedTopRow {
     align-items: start;
     gap: 3.5rem;
@@ -34,7 +33,7 @@ const ProductsSide = styled.div`
   flex-wrap: wrap;
   min-width: 95.5rem;
   overflow: scroll;
-  height: 77.02rem;
+  /* height: 77.02rem; */
 
   &::-webkit-scrollbar {
     display: none;
@@ -49,7 +48,6 @@ const Cards = styled.div`
 const ShopContent = () => {
   const { products } = useAllProducts();
   const [searchParams] = useSearchParams();
-
   // 1) FILTER
   const filteredProducts = products?.filter(
     (product) =>
