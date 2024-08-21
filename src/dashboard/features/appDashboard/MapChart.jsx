@@ -115,7 +115,7 @@ const MapChart = () => {
   const revenueData = [
     {
       country: "New York",
-      revenue: "$958.5k",
+      revenue: "$98.5",
       growth: "-2.6%",
       positive: false,
       percentage: "70%",
@@ -123,7 +123,7 @@ const MapChart = () => {
     },
     {
       country: "London",
-      revenue: "$788.7k",
+      revenue: "$78.7",
       growth: "+5.6%",
       positive: true,
       percentage: "60%",
@@ -131,7 +131,7 @@ const MapChart = () => {
     },
     {
       country: "Paris",
-      revenue: "$592.2k",
+      revenue: "$52.2",
       growth: "+3.7%",
       positive: true,
       percentage: "50%",

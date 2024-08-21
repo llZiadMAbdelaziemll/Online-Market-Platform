@@ -25,7 +25,7 @@ const CategoryTable = () => {
   return (
     <StyledTable>
       <Menus>
-        <Table columns="75px 260px 70px 80px 90px 30px">
+        <Table columns="75px 260px 70px 80px 30px">
           <TableTopic>Categories</TableTopic>
           <Table.Header>
             <div>Name</div>
@@ -34,7 +34,6 @@ const CategoryTable = () => {
             <div>Product</div>
 
             <div>Status</div>
-            <div>Trending</div>
             <div>Actions</div>
           </Table.Header>
 

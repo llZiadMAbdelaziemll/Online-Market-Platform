@@ -47,7 +47,6 @@ function CategoriesRow({ category }) {
     id: categoryId,
     name,
     product,
-    trending,
     slug,
     sortDesc,
     productTags,
@@ -58,10 +57,9 @@ function CategoriesRow({ category }) {
   return (
     <Table.Row>
       <Field>{name}</Field>
-      <Field>{subCategories}</Field>
+      <Field>{subCategories?.join(", ") || "no Subs"}</Field>
       <Field>{product}</Field>
       <ChangedField>{status}</ChangedField>
-      <Field>{trending}</Field>
 
       {user?.user_metadata?.role === "admin" && (
         <div>

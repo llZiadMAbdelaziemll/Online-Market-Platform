@@ -1,7 +1,9 @@
 import supabase from "./supabase";
 
 export async function getSubCategories() {
-  let query = supabase.from("sub_categories").select("*", { count: "exact" });
+  let query = supabase
+    .from("sub_categories")
+    .select("*,categories(*)", { count: "exact" });
 
   const { data, error, count } = await query;
 

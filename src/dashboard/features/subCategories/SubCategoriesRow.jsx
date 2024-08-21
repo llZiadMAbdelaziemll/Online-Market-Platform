@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { format } from "date-fns";
+import { format, sub } from "date-fns";
 
 import { formatCurrency } from "../../../utils/helpers";
 import Modal from "../../../basicUi/Modal";
@@ -49,13 +49,12 @@ function SubCategoriesRow({ subCategory }) {
     name,
     product,
     trending,
-    slug,
-    sortDesc,
-    fullDesc,
-    productTags,
+
     status,
     mainCategory,
+    categories,
   } = subCategory;
+  console.log(subCategory);
   // function handleDuplicate() {
   //   createCategory({
   //     name: `Copy of ${name}`,
@@ -73,9 +72,8 @@ function SubCategoriesRow({ subCategory }) {
     <Table.Row>
       <Field>{name}</Field>
       <Field>{mainCategory}</Field>
-      <Field>{product}</Field>
-      <ChangedField>{status}</ChangedField>
-      <Field>{trending}</Field>
+      <Field>{categories?.product}</Field>
+      <ChangedField>{categories?.status}</ChangedField>
       {user?.user_metadata?.role === "admin" && (
         <div>
           <Modal>

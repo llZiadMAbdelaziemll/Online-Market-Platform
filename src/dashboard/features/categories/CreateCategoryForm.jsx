@@ -8,11 +8,12 @@ import ImageBox from "../../ui/ImageBox";
 import Textarea from "../../ui/Textarea";
 import { useCreateCategory } from "./useCreateCategory";
 import { useEditCategory } from "./useEditCategory";
+import { useAllProducts } from "../products/useAllProducts";
 
 function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
   const { isCreating, createCategory } = useCreateCategory();
   const { isEditing, editCategory } = useEditCategory();
-
+  const { products } = useAllProducts();
   const isWorking = isCreating || isEditing;
 
   const { id: editId, ...editValues } = categoryToEdit;
@@ -25,6 +26,10 @@ function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
 
   const handleCreateCategory = (data) => {
     console.log(data);
+
+    const productCount = products?.filter(
+      (product) => product.category.toLowerCase() == data?.name.toLowerCase()
+    )?.length;
     if (isEditSession)
       editCategory(
         { newCategoryData: { ...data }, id: editId },
@@ -37,7 +42,7 @@ function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
       );
     else
       createCategory(
-        { ...data },
+        { ...data, subCategories: [], product: productCount, status: "active" },
         {
           onSuccess: (data) => {
             reset();

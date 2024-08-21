@@ -231,7 +231,10 @@ export default function CheckoutDetails() {
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
+  const subTotalAmount = products?.reduce((acc, cur) => {
+    return acc + cur.price;
+  }, 0);
+  console.log(subTotalAmount);
   const handleSubmit = (event) => {
     event.preventDefault();
     const customer =
@@ -305,15 +308,15 @@ export default function CheckoutDetails() {
               <Heading as="h4">Summary</Heading>
               <div className="btw">
                 <span>Sub-Total</span>
-                <Amount>{formatCurrency(80.0)}</Amount>
+                <Amount>{formatCurrency(subTotalAmount)}</Amount>
               </div>
               <div className="btw">
                 <span>Delivery Charges</span>
-                <Amount>{formatCurrency(80.0)}</Amount>
+                <Amount>{formatCurrency(5)}</Amount>
               </div>
               <div className="total">
                 <p>Total Amount</p>
-                <p>{formatCurrency(80.0)}</p>
+                <p>{formatCurrency(subTotalAmount + 5)}</p>
               </div>
               <Cart>
                 {products?.map((product) => {
