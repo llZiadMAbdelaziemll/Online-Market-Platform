@@ -21,10 +21,9 @@ export async function createEditSubCategory(newSubCategory, id) {
 
   // 1. Create/edit doctor
   let query = supabase.from("sub_categories");
-
   // A) CREATE
   if (!id) {
-    query = query.insert([{ ...other, productTags: [productTags] }]);
+    query = query.insert([{ ...other, productTags }]);
   }
 
   // B) EDIT
@@ -33,7 +32,7 @@ export async function createEditSubCategory(newSubCategory, id) {
       .update({
         ...other,
 
-        productTags: [productTags],
+        productTags: [...productTags],
       })
       .eq("id", id);
   }

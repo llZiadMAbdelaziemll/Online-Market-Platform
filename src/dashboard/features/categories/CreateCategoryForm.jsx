@@ -30,9 +30,17 @@ function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
     const productCount = products?.filter(
       (product) => product.category.toLowerCase() == data?.name.toLowerCase()
     )?.length;
+
+    const productTags =
+      typeof data?.productTags === "string"
+        ? data?.productTags?.split(",")?.map((tag) => tag + "")
+        : data?.productTags;
     if (isEditSession)
       editCategory(
-        { newCategoryData: { ...data }, id: editId },
+        {
+          newCategoryData: { ...data, productTags: [...productTags] },
+          id: editId,
+        },
         {
           onSuccess: (data) => {
             reset();
@@ -42,7 +50,13 @@ function CreateCategoryForm({ categoryToEdit = {}, onCloseModal }) {
       );
     else
       createCategory(
-        { ...data, subCategories: [], product: productCount, status: "active" },
+        {
+          ...data,
+          subCategories: [],
+          productTags: [...productTags],
+          product: productCount,
+          status: "active",
+        },
         {
           onSuccess: (data) => {
             reset();

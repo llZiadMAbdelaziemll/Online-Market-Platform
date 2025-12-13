@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Heading from "../../ui/Heading";
-import Button from "../../ui/Button";
-import StyledLinkButton from "../../ui/StyledLinkButton";
+import Heading from "./Heading";
+import Button from "./Button";
 
 const StyledDecordCard = styled.div`
   position: relative;
@@ -97,7 +96,7 @@ const DecordCard = () => {
       </Discount>
       <Category>
         <H5 as="h5">Cake</H5>
-        <StyledLinkButton to="/shop">Shop Now</StyledLinkButton>
+        <Button>Shop Now</Button>
       </Category>
       <Img src="./categories/4.jpg" alt="" />
     </StyledDecordCard>

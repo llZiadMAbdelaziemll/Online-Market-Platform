@@ -73,11 +73,15 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
             image7[0],
           ];
 
-    const tagArray = data?.tag.split(",");
+    const tag =
+      typeof data?.tag === "string"
+        ? data?.tag?.split(",")?.map((tag) => tag + "")
+        : data?.tag;
+
     console.log(image);
     if (isEditSession)
       editProduct(
-        { newProductData: { ...other, image }, id: editId },
+        { newProductData: { ...other, image, tag: [...tag] }, id: editId },
         {
           onSuccess: (data) => {
             reset();
@@ -92,7 +96,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
           image,
           date: getToday(),
           status: "Available",
-          tag: [...tagArray],
+          tag: [...tag],
         },
         {
           onSuccess: (data) => {

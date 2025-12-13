@@ -35,7 +35,6 @@ export default function PriceFilter() {
     ?.map((product) => product.price)
     .sort((a, b) => a - b);
 
-  console.log(prices);
   const handleSliderChange = (value) => {
     setPriceRange(value);
     searchParams.set("minPrice", value[0]);

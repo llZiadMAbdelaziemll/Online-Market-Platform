@@ -19,7 +19,7 @@ export const products = [
     color: "Red",
     tag: ["Pizza"],
     review: 4.8,
-    category: "Italian",
+    category: "Italian Cuisine",
   },
   {
     image: ["burger.jpg"],
@@ -36,7 +36,7 @@ export const products = [
     color: "Brown",
     tag: ["Burger"],
     review: 4.5,
-    category: "American",
+    category: "Italian Cuisine",
   },
   {
     image: ["sushi.jpg"],
@@ -53,7 +53,7 @@ export const products = [
     color: "White",
     tag: ["Sushi"],
     review: 4.7,
-    category: "Japanese",
+    category: "Asian Cuisine",
   },
   {
     image: ["salad.jpg"],
@@ -88,7 +88,7 @@ export const products = [
     color: "Yellow",
     tag: ["Pasta"],
     review: 4.6,
-    category: "electronics",
+    category: "Italian Cuisine",
   },
   {
     image: ["steak.jpg"],
@@ -105,7 +105,7 @@ export const products = [
     color: "Red",
     tag: ["Steak"],
     review: 4.9,
-    category: "electronics",
+    category: "Mexican Cuisine",
   },
   {
     image: ["tacos.jpg"],
@@ -122,7 +122,7 @@ export const products = [
     color: "Yellow",
     tag: ["Tacos"],
     review: 4.7,
-    category: "electronics",
+    category: "Mexican Cuisine",
   },
   {
     image: ["soup.jpg"],
@@ -139,7 +139,7 @@ export const products = [
     color: "Yellow",
     tag: ["Soup"],
     review: 4.4,
-    category: "clothing",
+    category: "Soups & Stews",
   },
   {
     image: ["sushi.jpg"],
@@ -157,7 +157,7 @@ export const products = [
     color: "White",
     tag: ["Sushi"],
     review: 4.6,
-    category: "books",
+    category: "Asian Cuisine",
   },
   {
     image: ["sandwich.jpg"],
@@ -174,7 +174,7 @@ export const products = [
     color: "Brown",
     tag: ["Sandwich"],
     review: 4.3,
-    category: "clothing",
+    category: "Asian Cuisine",
   },
   {
     image: ["cake.jpg"],
@@ -192,7 +192,7 @@ export const products = [
     color: "Brown",
     tag: ["Cake"],
     review: 4.7,
-    category: "sports",
+    category: "Desserts",
   },
   {
     image: ["coffee.jpg"],
@@ -209,7 +209,7 @@ export const products = [
     color: "Brown",
     tag: ["Coffee"],
     review: 4.5,
-    category: "sports",
+    category: "Beverages",
   },
   {
     image: ["pasta.jpg"],
@@ -227,7 +227,7 @@ export const products = [
     color: "White",
     tag: ["Pasta"],
     review: 4.8,
-    category: "clothing",
+    category: "Italian Cuisine",
   },
   {
     image: ["burrito.jpg"],
@@ -245,7 +245,7 @@ export const products = [
     color: "Yellow",
     tag: ["Burrito"],
     review: 4.6,
-    category: "electronics",
+    category: "Mexican Cuisine",
   },
   {
     image: ["soup.jpg"],
@@ -262,7 +262,7 @@ export const products = [
     color: "Red",
     tag: ["Soup"],
     review: 4.3,
-    category: "toys",
+    category: "Soups & Stews",
   },
   {
     image: ["sushi.jpg"],
@@ -280,6 +280,6 @@ export const products = [
     color: "Red",
     tag: ["Sushi"],
     review: 4.7,
-    category: "toys",
+    category: "Asian Cuisine",
   },
 ];

@@ -49,7 +49,7 @@ function App() {
             >
               <Route index element={<Navigate replace to="home" />} />
               <Route path="home" element={<Home />} />
-              <Route path="home/:productId" element={<Product />} />
+              {/* <Route path="home/:productId" element={<Product />} /> */}
               <Route path="shop" element={<Shop />} />
               <Route path="product/:productId" element={<Product />} />
               <Route path="account" element={<Account />} />

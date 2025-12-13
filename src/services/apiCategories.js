@@ -23,7 +23,7 @@ export async function createEditCategory(newCategory, id) {
   // A) CREATE
   if (!id) {
     query = query.insert([
-      { ...other, subCategories: [subCategories], productTags: [productTags] },
+      { ...other, subCategories: [subCategories], productTags },
     ]);
   }
 
@@ -32,8 +32,8 @@ export async function createEditCategory(newCategory, id) {
     query = query
       .update({
         ...other,
-        subCategories: [subCategories],
-        productTags: [productTags],
+        subCategories: [...subCategories],
+        productTags: [...productTags],
       })
       .eq("id", id);
   }

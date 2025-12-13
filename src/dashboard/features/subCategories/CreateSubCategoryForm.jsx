@@ -35,10 +35,17 @@ function CreateSubCategoryForm({ categoryToEdit = {}, onCloseModal }) {
         return category?.name == data?.mainCategory;
       })
       ?.at(0);
-
+    const tagArray =
+      typeof data?.productTags === "string"
+        ? data?.productTags.split(",")?.map((tag) => tag + "")
+        : data?.productTags;
+    console.log(tagArray);
     if (isEditSession)
       editSubCategory(
-        { newSubCategoryData: { ...data }, id: editId },
+        {
+          newSubCategoryData: { ...data, productTags: [tagArray] },
+          id: editId,
+        },
         {
           onSuccess: (data) => {
             reset();
@@ -48,7 +55,7 @@ function CreateSubCategoryForm({ categoryToEdit = {}, onCloseModal }) {
       );
     else {
       createSubCategory(
-        { ...data, categoryId: mainCategory?.id },
+        { ...data, productTags: [tagArray], categoryId: mainCategory?.id },
         {
           onSuccess: (data) => {
             reset();
@@ -74,7 +81,7 @@ function CreateSubCategoryForm({ categoryToEdit = {}, onCloseModal }) {
         <Controller
           name="mainCategory" // The name should match the key in your data object
           control={control}
-          defaultValue="Clothing" // Set the default value as needed
+          defaultValue="healthy" // Set the default value as needed
           render={({ field }) => {
             return (
               <Select

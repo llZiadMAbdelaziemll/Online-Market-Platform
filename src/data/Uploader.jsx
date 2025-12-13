@@ -4,7 +4,7 @@ import Button from "../dashboard/ui/Button";
 
 import { products } from "./data-products";
 import { categories } from "./data-categories";
-// import { subCategories } from "./data-sub_categories";
+import { subCategories } from "./data-sub_categories";
 
 // const originalSettings = {
 //   minBookingLength: 3,
@@ -21,10 +21,10 @@ async function deleteCategories() {
   const { error } = await supabase.from("categories").delete().gt("id", 0);
   if (error) console.log(error.message);
 }
-// async function deleteSubCategories() {
-//   const { error } = await supabase.from("sub_categories").delete().gt("id", 0);
-//   if (error) console.log(error.message);
-// }
+async function deleteSubCategories() {
+  const { error } = await supabase.from("sub_categories").delete().gt("id", 0);
+  if (error) console.log(error.message);
+}
 
 async function createProducts() {
   const { error } = await supabase.from("products").insert(products);
@@ -35,10 +35,10 @@ async function createCategories() {
   if (error) console.log(error.message);
 }
 
-// async function createSubCategories() {
-//   const { error } = await supabase.from("sub_categories").insert(subCategories);
-//   if (error) console.log(error.message);
-// }
+async function createSubCategories() {
+  const { error } = await supabase.from("sub_categories").insert(subCategories);
+  if (error) console.log(error.message);
+}
 
 function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,11 +48,11 @@ function Uploader() {
 
     await deleteProducts();
     await deleteCategories();
-    // await deleteSubCategories();
+    await deleteSubCategories();
 
     await createProducts();
     await createCategories();
-    // await createSubCategories();
+    await createSubCategories();
 
     setIsLoading(false);
   }
@@ -60,6 +60,12 @@ function Uploader() {
     setIsLoading(true);
     await deleteProducts();
     await createProducts();
+    setIsLoading(false);
+  }
+  async function uploadSubCategories() {
+    setIsLoading(true);
+    await deleteSubCategories();
+    await createSubCategories();
     setIsLoading(false);
   }
   return (
@@ -80,8 +86,8 @@ function Uploader() {
       <Button onClick={uploadAll} disabled={isLoading}>
         Upload ALL
       </Button>
-      <Button onClick={uploadProducts} disabled={isLoading}>
-        Upload products ONLY
+      <Button onClick={uploadSubCategories} disabled={isLoading}>
+        Upload uploadSubCategories ONLY
       </Button>
     </div>
   );

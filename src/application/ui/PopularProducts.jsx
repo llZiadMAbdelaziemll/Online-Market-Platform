@@ -48,25 +48,25 @@ const PopularProducts = () => {
   const [searchParams] = useSearchParams();
 
   const filterValue = searchParams.get("category") || "all";
-
+  console.log(filterValue);
   let filteredProducts;
   if (filterValue === "all") filteredProducts = products;
   if (filterValue === "asian cuisine")
     filteredProducts = products.filter(
-      (product) => product.category === "asian cuisine"
+      (product) => product.category === "Asian Cuisine"
     );
 
   if (filterValue === "italian cuisine")
     filteredProducts = products.filter(
-      (product) => product.category === "italian cuisine"
+      (product) => product.category === "Italian Cuisine"
     );
   if (filterValue === "beverages")
     filteredProducts = products.filter(
-      (product) => product.category === "beverages"
+      (product) => product.category === "Beverages"
     );
   if (filterValue === "soups & stews")
     filteredProducts = products.filter(
-      (product) => product.category === "soups & stews"
+      (product) => product.category === "Soups & Stews"
     );
   return (
     <StyledPopularProducts>

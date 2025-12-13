@@ -27,6 +27,7 @@ const ImageDiv = styled.div`
   height: 19.8rem;
   overflow: hidden;
   border: 1px solid #e9e9e9;
+  cursor: pointer;
 `;
 
 const Icon = styled.div`

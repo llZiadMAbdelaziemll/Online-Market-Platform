@@ -78,7 +78,7 @@ export async function createEditProduct(newProduct, id) {
   // // B) EDIT
   if (id)
     query = query
-      .update({ ...other, image: [...imagePaths], tag })
+      .update({ ...other, image: [...imagePaths], tag: [...tag] })
       .eq("id", id);
 
   const { data, error } = await query.select().single();
