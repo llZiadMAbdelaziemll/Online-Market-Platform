@@ -6,7 +6,7 @@ export default function TagsFilterOperations() {
     <Filter
       filterField="tag"
       options={[
-        // { value: "all", label: "All" },
+        { value: "all", label: "All" },
         { value: "coffee", label: "Coffee" },
         { value: "sushi", label: "Sushi" },
         { value: "burger", label: "Burger" },

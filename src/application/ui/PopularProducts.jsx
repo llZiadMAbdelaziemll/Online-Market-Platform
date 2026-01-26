@@ -9,6 +9,7 @@ import CategoriesFilterOperations from "../features/home/CategoriesFilterOperati
 import { useSearchParams } from "react-router-dom";
 import Heading from "./Heading";
 import Description from "./Description";
+import Empty from "./Empty";
 const StyledPopularProducts = styled.section`
   margin-bottom: 10rem;
   & div.alignedTopRow {
@@ -92,6 +93,7 @@ const PopularProducts = () => {
                 <BasicCard key={product.id} product={product} place="home" />
               );
             })}
+            {filteredProducts?.length == 0 && <Empty resource="products" />}
           </RightSide>
         </Row>
       </Container>

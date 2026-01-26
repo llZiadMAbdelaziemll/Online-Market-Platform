@@ -28,17 +28,27 @@ const StyledFilter = styled.div`
   }
 `;
 export default function PriceFilter() {
-  const [priceRange, setPriceRange] = useState([0, 200]);
-  const [searchParams, setSearchParams] = useSearchParams();
   const { products } = useProducts();
-  const prices = products
-    ?.map((product) => product.price)
-    .sort((a, b) => a - b);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const prices = products?.map((p) => p.price).sort((a, b) => a - b);
+
+  const minPrice = 0;
+  const maxPrice = prices?.at(prices.length - 1) || 200;
+
+  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
 
   const handleSliderChange = (value) => {
     setPriceRange(value);
-    searchParams.set("minPrice", value[0]);
-    searchParams.set("maxPrice", value[1]);
+
+    if (value[0] === minPrice && value[1] === maxPrice) {
+      searchParams.delete("minPrice");
+      searchParams.delete("maxPrice");
+    } else {
+      searchParams.set("minPrice", value[0]);
+      searchParams.set("maxPrice", value[1]);
+    }
+
     setSearchParams(searchParams);
   };
 
@@ -46,9 +56,9 @@ export default function PriceFilter() {
     <StyledFilter>
       <Slider
         range
-        min={prices?.at(0)}
-        max={prices?.at(prices?.length - 1)}
-        defaultValue={priceRange}
+        min={minPrice}
+        max={maxPrice}
+        value={priceRange}
         onChange={handleSliderChange}
         trackStyle={{ backgroundColor: "#64b496" }}
         railStyle={{ backgroundColor: "#e9e9e9" }}

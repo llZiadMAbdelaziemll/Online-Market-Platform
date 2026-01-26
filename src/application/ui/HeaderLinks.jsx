@@ -46,7 +46,7 @@ const HeaderLinks = () => {
       <StyledLink to="/home">Home</StyledLink>
       <StyledLink to="/shop">Shop</StyledLink>
       <StyledLink to="/aboutus">About Us</StyledLink>
-      <StyledLink to="/contactus">Contact Us</StyledLink>
+      {/* <StyledLink to="/contactus">Contact Us</StyledLink> */}
       <StyledLink to="/policy">Policy</StyledLink>
 
       {!isAuthenticated ? (

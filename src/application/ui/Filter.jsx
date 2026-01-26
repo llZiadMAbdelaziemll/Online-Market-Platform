@@ -40,16 +40,14 @@ const FilterButton = styled.button`
 
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const currentFilter = searchParams.get(filterField) || options.at(0).value;
-  let currentFilter;
-  if (filterField !== "category") {
-    currentFilter = searchParams.get(filterField);
-  } else {
-    currentFilter = searchParams.get(filterField) || options.at(0).value;
-  }
 
+  const currentFilter = searchParams.get(filterField) || "all";
   function handleClick(value) {
-    searchParams.set(filterField, value);
+    if (value === "all") {
+      searchParams.delete(filterField);
+    } else {
+      searchParams.set(filterField, value);
+    }
     if (searchParams.get("page")) searchParams.set("page", 1);
 
     setSearchParams(searchParams);
@@ -63,7 +61,7 @@ function Filter({ filterField, options }) {
           onClick={() => handleClick(option.value)}
           active={option.value === currentFilter}
           className={`${option.value === currentFilter ? "active" : ""}`}
-          disabled={option.value === currentFilter}
+          disabled={false}
         >
           {option.label} <FaLongArrowAltRight />
         </FilterButton>

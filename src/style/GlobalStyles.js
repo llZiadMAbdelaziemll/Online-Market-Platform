@@ -89,7 +89,7 @@ const GlobalStyles = createGlobalStyle`
 --color-dashboard-800: #f3f4f6;
 --color-dashboard-900: #f9fafb;
 
-  --color-green-0: #fff;
+--color-green-0: #fff;
   --color-green-50: #f0f8f5;
   --color-green-100: #e4f2ed;
   --color-green-200: #a2d2c0;

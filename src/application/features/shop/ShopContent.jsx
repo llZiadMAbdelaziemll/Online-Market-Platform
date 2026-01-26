@@ -8,6 +8,7 @@ import Container from "../../ui/Container";
 import Row from "../../ui/Row";
 import BasicCard from "../../ui/BasicCard";
 import { useAllProducts } from "../../../dashboard/features/products/useAllProducts";
+import Empty from "../../ui/Empty";
 
 const StyledShop = styled.section`
   margin: 10rem 0;
@@ -66,23 +67,7 @@ const ShopContent = () => {
           .map((tag) => tag?.toLowerCase())
           .some((tag) => searchParams.get("tag")?.includes(tag)))
   );
-  //  const filterValue = searchParams.get("category") || "all";
 
-  //  let filteredProducts;
-  //  if (filterValue === "all") filteredProducts = doctors;
-  //  if (filterValue === "dentist")
-  //    filteredProducts = products.filter(
-  //      (doctor) => doctor.department === "Dentist"
-  //    );
-
-  //  if (filterValue === "cardiology")
-  //    filteredProducts = products.filter(
-  //      (doctor) => doctor.department === "Cardiology"
-  //    );
-  //  if (filterValue === "neurology")
-  //    filteredProducts = products.filter(
-  //      (doctor) => doctor.department === "Neurology"
-  //    );
   return (
     <>
       <Meta title={"Shop"} />
@@ -98,6 +83,7 @@ const ShopContent = () => {
                 {filteredProducts?.map((product) => {
                   return <BasicCard key={product.id} product={product} />;
                 })}
+                {filteredProducts?.length == 0 && <Empty resource="products" />}
               </Cards>
               {/* <BasicCard />
               <BasicCard /> */}

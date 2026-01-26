@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCategories } from "../../../dashboard/features/categories/useCategories";
 import { useProducts } from "../../../dashboard/features/products/useProducts";
+import { useAllProducts } from "../../../dashboard/features/products/useAllProducts";
 
 const StyledCategoriesList = styled.ul`
   list-style: none;
@@ -51,25 +52,28 @@ const ViewMore = styled(Link)`
 `;
 const CategoriesList = () => {
   const { categories } = useCategories();
-  const { products } = useProducts();
-  function itemsCount(name) {
-    const categoryCount = products?.filter(
-      (product) => product.category == name?.toLowerCase()
-    )?.length;
-    console.log(categoryCount);
-    return categoryCount;
-  }
+  const { products } = useAllProducts();
+  const categoryCounts = useMemo(() => {
+    const counts = {};
+
+    products?.forEach((product) => {
+      const category = product.category?.toLowerCase();
+      counts[category] = (counts[category] || 0) + 1;
+    });
+
+    return counts;
+  }, [products]);
 
   return (
     <StyledCategoriesList>
-      {categories?.slice(0, 5)?.map((cat) => {
-        return (
-          <StyledLink key={cat.id}>
-            <H5 as="h5">{cat.name}</H5>
-            <ItemsCount>({itemsCount(cat?.name)} items)</ItemsCount>
-          </StyledLink>
-        );
-      })}
+      {categories?.slice(0, 5).map((cat) => (
+        <StyledLink to="/shop" key={cat.id}>
+          <H5>{cat.name}</H5>
+          <ItemsCount>
+            ({categoryCounts[cat.name.toLowerCase()] || 0} items)
+          </ItemsCount>
+        </StyledLink>
+      ))}
       <StyledLink to="/shop">
         <ViewMore to="/shop">view more</ViewMore>
       </StyledLink>
