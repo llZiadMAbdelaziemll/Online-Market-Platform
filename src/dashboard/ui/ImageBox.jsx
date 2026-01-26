@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import FileInput from "./FileInput";
 import styled from "styled-components";
 
@@ -27,12 +33,20 @@ const ImageBox = ({
   register,
   id,
   children,
+  resetSignal,
 }) => {
   const [image, setImage] = useState();
   const ImageRef = useRef(null);
   function handleImageClick() {
     ImageRef.current.click();
   }
+  // 🔥 RESET PREVIEW + INPUT
+  useEffect(() => {
+    setImage(null);
+    if (ImageRef.current) {
+      ImageRef.current.value = "";
+    }
+  }, [resetSignal]);
   return (
     <InputContext.Provider value={{ ImageRef, image, setImage, register, id }}>
       <StyledImgBox width={width} height={height} onClick={handleImageClick}>
@@ -41,9 +55,27 @@ const ImageBox = ({
     </InputContext.Provider>
   );
 };
+// const BoxImage = () => {
+//   const { image } = useContext(InputContext);
+//   return <Img src={image ? URL.createObjectURL(image) : null} alt="" />;
+// };
 const BoxImage = () => {
   const { image } = useContext(InputContext);
-  return <Img src={image ? URL.createObjectURL(image) : null} alt="" />;
+  const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    if (!image) {
+      setPreview(null);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(image);
+    setPreview(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [image]);
+
+  return preview ? <Img src={preview} alt="" /> : null;
 };
 
 const ImgInput = () => {

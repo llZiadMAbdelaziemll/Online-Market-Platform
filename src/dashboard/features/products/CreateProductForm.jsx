@@ -11,20 +11,24 @@ import { getToday } from "../../../utils/helpers";
 import { useCreateProduct } from "./useCreateProduct";
 import { useCategories } from "../categories/useCategories";
 import { useEditProduct } from "./useEditProduct";
+import { useState } from "react";
 
 function CreateProductForm({ productToEdit = {}, onCloseModal }) {
   const { isCreating, createProduct } = useCreateProduct();
   const { isEditing, editProduct } = useEditProduct();
   const { categories } = useCategories();
+  const [resetSignal, setResetSignal] = useState(0);
+
   const { id: editId, ...editValues } = productToEdit;
   const isEditSession = Boolean(editId);
 
   console.log(isEditSession);
   const isWorking = isCreating || isEditing;
 
-  const { register, handleSubmit, reset, control, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
+  const { register, handleSubmit, reset, setValue, control, formState } =
+    useForm({
+      defaultValues: isEditSession ? editValues : {},
+    });
   const { errors } = formState;
 
   // past handle function *************
@@ -101,6 +105,7 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
         {
           onSuccess: (data) => {
             reset();
+            setResetSignal((s) => s + 1);
             onCloseModal?.();
           },
         }
@@ -113,34 +118,70 @@ function CreateProductForm({ productToEdit = {}, onCloseModal }) {
     >
       <FormRow size="layout">
         <FormRow>
-          <ImageBox register={register} id="image1">
+          <ImageBox register={register} id="image1" resetSignal={resetSignal}>
             <ImageBox.Img />
             <ImageBox.ImgInput />
           </ImageBox>
           <FormRow size="one-third">
-            <ImageBox width="104" height="104" register={register} id="image2">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image2"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
-            <ImageBox width="104" height="104" register={register} id="image3">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image3"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
-            <ImageBox width="104" height="104" register={register} id="image4">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image4"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
           </FormRow>
           <FormRow size="one-third">
-            <ImageBox width="104" height="104" register={register} id="image5">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image5"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
-            <ImageBox width="104" height="104" register={register} id="image6">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image6"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
-            <ImageBox width="104" height="104" register={register} id="image7">
+            <ImageBox
+              width="104"
+              height="104"
+              register={register}
+              id="image7"
+              resetSignal={resetSignal}
+            >
               <ImageBox.Img />
               <ImageBox.ImgInput />
             </ImageBox>
